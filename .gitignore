@@ -1,0 +1,11 @@
+*.class
+
+# Package Files #
+*.jar
+*.war
+*.ear
+*.classpath
+*.project
+*.prefs
+pom.properties
+*/target/
