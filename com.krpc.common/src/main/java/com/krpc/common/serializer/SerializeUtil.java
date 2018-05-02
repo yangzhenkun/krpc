@@ -1,4 +1,4 @@
-package com.krpc.com.krpc.server.util;
+package com.krpc.common.serializer;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

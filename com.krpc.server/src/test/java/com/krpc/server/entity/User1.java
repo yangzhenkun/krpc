@@ -1,4 +1,4 @@
-package com.krpc.com.krpc.server.entity;
+package com.krpc.server.entity;
 
 import java.io.Serializable;
 

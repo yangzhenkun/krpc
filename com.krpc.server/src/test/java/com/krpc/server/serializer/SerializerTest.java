@@ -1,4 +1,4 @@
-package com.krpc.com.krpc.server.serializer;
+package com.krpc.server.serializer;
 
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -7,7 +7,7 @@ import java.net.URLClassLoader;
 
 import org.junit.Test;
 
-import com.krpc.com.krpc.server.util.SerializeUtil;
+import com.krpc.common.serializer.SerializeUtil;
 
 public class SerializerTest {
 
