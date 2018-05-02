@@ -2,13 +2,13 @@ package com.krpc.com.krpc.server.entity;
 
 import java.io.Serializable;
 
-public class User implements Serializable{
+public class User1 implements Serializable{
 
 	private Integer id;
 	private String name;
 	private String phone;
 	
-	public User(Integer id, String name, String phone) {
+	public User1(Integer id, String name, String phone) {
 		super();
 		this.id = id;
 		this.name = name;

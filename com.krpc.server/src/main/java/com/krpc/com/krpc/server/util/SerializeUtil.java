@@ -5,6 +5,8 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,20 +41,21 @@ public class SerializeUtil {
 		return null;
 	}
 
+	
 	/**
 	 * @TODO 对象反序列化
 	 * @param bytes
 	 * @return
 	 * @return
 	 */
-	public static <T> T unserialize(Class<T> clazz, byte[] bytes) {
+	public static Object deserialize(byte[] bytes,ClassLoader classLoader) {
 		ByteArrayInputStream bais = null;
-		ObjectInputStream ois = null;
+		ObjectInputStreamWithLoader ois = null;
 		try {
 			// 反序列化
 			bais = new ByteArrayInputStream(bytes);
-			ois = new ObjectInputStream(bais);
-			return (T) ois.readObject();
+			ois = new ObjectInputStreamWithLoader(bais,classLoader);
+			return ois.readObject();
 		} catch (Exception e) {
 			log.error("反序列化错误", e);
 		}
