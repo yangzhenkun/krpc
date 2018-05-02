@@ -6,6 +6,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectStreamClass;
 import java.io.StreamCorruptedException;
 
+/**
+ * 反序列化中使用自定义加载的类
+ * @author yangzhenkun
+ *
+ */
 public class ObjectInputStreamWithLoader extends ObjectInputStream {
 
 	private ClassLoader loader;

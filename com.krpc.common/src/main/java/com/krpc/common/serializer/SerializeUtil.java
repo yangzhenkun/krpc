@@ -14,7 +14,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @TODO 序列化工具
  * 
- * @author yangzhenkun01
+ * @author yangzhenkun
  */
 public class SerializeUtil {
 
@@ -43,9 +43,9 @@ public class SerializeUtil {
 
 	
 	/**
-	 * @TODO 对象反序列化
+	 * @TODO 对象反序列化(必需指明 反序列化的类 的ClassLoader)
 	 * @param bytes
-	 * @return
+	 * @param classLoader 该类的加载器
 	 * @return
 	 */
 	public static Object deserialize(byte[] bytes,ClassLoader classLoader) {
@@ -55,6 +55,26 @@ public class SerializeUtil {
 			// 反序列化
 			bais = new ByteArrayInputStream(bytes);
 			ois = new ObjectInputStreamWithLoader(bais,classLoader);
+			return ois.readObject();
+		} catch (Exception e) {
+			log.error("反序列化错误", e);
+		}
+		return null;
+	}
+	
+	/**
+	 * @TODO 对象反序列化（反序列化类为AppClassLoader加载）
+	 * @param bytes
+	 * @return
+	 * @return
+	 */
+	public static Object deserialize(byte[] bytes) {
+		ByteArrayInputStream bais = null;
+		ObjectInputStream ois = null;
+		try {
+			// 反序列化
+			bais = new ByteArrayInputStream(bytes);
+			ois = new ObjectInputStream(bais);
 			return ois.readObject();
 		} catch (Exception e) {
 			log.error("反序列化错误", e);

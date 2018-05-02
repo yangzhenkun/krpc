@@ -62,18 +62,8 @@ public class BootStrap {
 				
 				URLClassLoader classLoader = new URLClassLoader(jarURLS, ClassLoader.getSystemClassLoader());
 				Class clazz = classLoader.loadClass("com.krpc.com.krpc.demo.impl.Service");
-				Method[] methods = clazz.getMethods();
-				Method method = methods[0];
 				
-				Object ob = method.invoke(clazz.newInstance(), null);
-				Class returnClazz = method.getReturnType();
 				
-				byte[] bytes = SerializeUtil.serialize(ob);
-				Object bob = SerializeUtil.deserialize( bytes, classLoader);
-				
-				System.out.println(bob);
-				System.out.println(bytes.length);
-				System.out.println(ob);
 				
 				
 			} catch (MalformedURLException e) {
