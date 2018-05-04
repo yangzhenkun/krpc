@@ -40,7 +40,6 @@ public class BootStrap {
 			
 			String serviceRootPath = rootPath+"service"+File.separator+serviceName+File.separator;
 			
-			
 			// 初始化log4j
 			DOMConfigurator.configure(serviceRootPath+File.separator+"conf"+File.separator+"log4j.xml");
 			Logger log = LoggerFactory.getLogger(BootStrap.class);
