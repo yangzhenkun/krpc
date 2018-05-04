@@ -17,7 +17,7 @@ public class ObjectInputStreamWithLoader extends ObjectInputStream {
 
 	public ObjectInputStreamWithLoader(InputStream in, ClassLoader loader)
 	            throws IOException, StreamCorruptedException {
-
+	
 	        super(in);
 	        if (loader == null) {
 	            throw new IllegalArgumentException("Illegal null argument to ObjectInputStreamWithLoader");

@@ -16,6 +16,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.krpc.common.serializer.SerializeUtil;
+import com.krpc.server.core.LoadConfigure;
+import com.krpc.server.core.RequestHandler;
+import com.krpc.server.entity.Global;
 
 /**
  * 启动器
@@ -30,51 +33,32 @@ public class BootStrap {
 		if(args.length>0){
 			//初始化项目路径
 			String serviceName = args[0];
-			Global.setServiceName(serviceName);
+			Global.getInstance().setServiceName(serviceName);
 			String userDir = System.getProperty("user.dir");
 			String rootPath = userDir + File.separator+".."+File.separator;
-			String rootLib = userDir + File.separator+"lib";
+			String rootLibPath = userDir + File.separator+"lib";
 			
+			String serviceRootPath = rootPath+"service"+File.separator+serviceName+File.separator;
 			
-			String serviceRoot = rootPath+"service"+File.separator+serviceName+File.separator;
-			String serviceLib = serviceRoot+"lib";
-			String serviceConf = serviceRoot+"conf";
 			
 			// 初始化log4j
-			DOMConfigurator.configure(serviceConf+File.separator+"log4j.xml");
+			DOMConfigurator.configure(serviceRootPath+File.separator+"conf"+File.separator+"log4j.xml");
 			Logger log = LoggerFactory.getLogger(BootStrap.class);
 			
-			//获取所有的jar包
 			try {
-				File serviceLibDir = new File(serviceLib);
+				//加载配置文件，并初始化相关内容
+				LoadConfigure.load(serviceRootPath);
 				
-				File[] jarFiles = serviceLibDir.listFiles(new FilenameFilter() {
-					@Override
-					public boolean accept(File dir, String name) {
-						return name.endsWith(".jar");
-					}
-				});
+				byte[] request = SerializeUtil.read("D://request.txt");
 				
-				URL[] jarURLS = new URL[jarFiles.length];
-				for(int i=0;i<jarFiles.length;i++){
-					jarURLS[i] = jarFiles[i].toURI().toURL();
-				}
+				byte[] response = RequestHandler.handler(request);
 				
-				URLClassLoader classLoader = new URLClassLoader(jarURLS, ClassLoader.getSystemClassLoader());
-				Class clazz = classLoader.loadClass("com.krpc.com.krpc.demo.impl.Service");
+				SerializeUtil.WriteStringToFile(response, "D://response.txt");
 				
-				
-				
-				
-			} catch (MalformedURLException e) {
-				log.error("获取服务lib错误",e);
-			} catch (ClassNotFoundException e) {
-				log.error("调用真实服务错误",e);
+			
 			} catch (Exception e) {
-				log.error("初始化服务错误",e);
-			} 
-			
-			
+				log.error("",e);
+			}
 			
 			
 			

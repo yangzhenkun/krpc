@@ -2,11 +2,15 @@ package com.krpc.common.serializer;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.URL;
-import java.net.URLClassLoader;
+import java.io.PrintStream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,7 +23,7 @@ import org.slf4j.LoggerFactory;
 public class SerializeUtil {
 
 	private static Logger log = LoggerFactory.getLogger(SerializeUtil.class);
-
+	
 	/**
 	 * @TODO 对象序列化
 	 * @param object
@@ -57,6 +61,7 @@ public class SerializeUtil {
 			ois = new ObjectInputStreamWithLoader(bais,classLoader);
 			return ois.readObject();
 		} catch (Exception e) {
+			e.printStackTrace();
 			log.error("反序列化错误", e);
 		}
 		return null;
@@ -81,4 +86,38 @@ public class SerializeUtil {
 		}
 		return null;
 	}
+	
+	public static void WriteStringToFile(byte[] content,String filePath)  {
+		try {
+			File file = new File(filePath);
+			PrintStream ps = new PrintStream(new FileOutputStream(file));
+			ps.write(content);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public static byte[] read(String filePath) throws Exception{
+		
+		InputStream in = new FileInputStream(filePath);
+	    byte[] data = toByteArray(in);
+	    in.close();
+		
+	    return data;
+	}
+	
+	private static  byte[] toByteArray(InputStream in) throws IOException {
+		 
+	    ByteArrayOutputStream out = new ByteArrayOutputStream();
+	    byte[] buffer = new byte[1024 * 4];
+	    int n = 0;
+	    while ((n = in.read(buffer)) != -1) {
+	        out.write(buffer, 0, n);
+	    }
+	    return out.toByteArray();
+	}
+	
+	
+	
 }
