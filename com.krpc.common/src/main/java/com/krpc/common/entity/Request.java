@@ -11,7 +11,6 @@ import java.util.List;
  */
 public class Request implements Serializable{
 	private static final long serialVersionUID = -6060365745498911171L;
-	
 	//服务名实现类名字
 	private String serviceImplName;
 	//方法名
