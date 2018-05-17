@@ -16,7 +16,7 @@ public class Request implements Serializable{
 	//方法名
 	private String methodName;
 	//调用方法参数的 Class
-	private List<Class> paramsTypes;
+//	private List<Class> paramsTypes;
 	
 	//调用方法参数的 实例,顺序与上面的Class保持一致
 	private List<Object> paramsValues;
@@ -30,9 +30,9 @@ public class Request implements Serializable{
 	public String getMethodName() {
 		return methodName;
 	}
-	public List<Class> getParamsTypes() {
-		return paramsTypes;
-	}
+//	public List<Class> getParamsTypes() {
+//		return paramsTypes;
+//	}
 	public List<Object> getParamsValues() {
 		return paramsValues;
 	}
@@ -42,16 +42,16 @@ public class Request implements Serializable{
 	public void setMethodName(String methodName) {
 		this.methodName = methodName;
 	}
-	public void setParamsTypes(List<Class> paramsTypes) {
-		this.paramsTypes = paramsTypes;
-	}
+//	public void setParamsTypes(List<Class> paramsTypes) {
+//		this.paramsTypes = paramsTypes;
+//	}
 	public void setParamsValues(List<Object> paramsValues) {
 		this.paramsValues = paramsValues;
 	}
 	@Override
 	public String toString() {
 		return "Request [serviceImplName=" + serviceImplName + ", methodName=" + methodName + ", paramsTypes="
-				+ paramsTypes + ", paramsValues=" + paramsValues + "]";
+				+/* paramsTypes +*/ ", paramsValues=" + paramsValues + "]";
 	}
 	
 }

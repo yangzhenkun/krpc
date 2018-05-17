@@ -1,16 +1,13 @@
 package com.krpc.server.util;
 
 import java.io.File;
-import java.util.Iterator;
 import java.util.List;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
-import org.junit.Test;
 
 public class Dom4JTest {
-	@Test
 	public void test() throws Exception{
 		
 		// 创建saxReader对象  

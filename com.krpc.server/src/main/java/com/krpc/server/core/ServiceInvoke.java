@@ -3,15 +3,11 @@ package com.krpc.server.core;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
-import java.util.ArrayList;
-import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.krpc.common.entity.Request;
-import com.krpc.common.entity.Response;
-import com.krpc.common.serializer.SerializeUtil;
 import com.krpc.server.entity.Global;
 
 /**
@@ -35,10 +31,14 @@ public class ServiceInvoke {
 //				Class[] requestParamsType = (Class[]) SerializeUtil.deserialize(request.getParamsTypes(), Global.getInstance().getClassLoader());
 //				Object[] requestParamsValue = (Object[]) SerializeUtil.deserialize(request.getParamsValues(), Global.getInstance().getClassLoader());
 				
-				Class[] requestParamTypes = new Class[request.getParamsTypes().size()];
-				request.getParamsTypes().toArray(requestParamTypes);
+				Class[] requestParamTypes = new Class[request.getParamsValues().size()];
+//				request.getParamsTypes().toArray(requestParamTypes);
 				Object[] requestParmsValues = new Object[request.getParamsValues().size()];
 				request.getParamsValues().toArray(requestParmsValues);
+				for(int i=0;i<requestParamTypes.length;i++){
+					requestParmsValues[i]=requestParamTypes[i].getClass();
+				}
+				
 				
 				method = clazz.getMethod(request.getMethodName(),requestParamTypes);
 				method.setAccessible(true);

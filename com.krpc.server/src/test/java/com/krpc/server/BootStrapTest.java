@@ -2,8 +2,6 @@ package com.krpc.server;
 
 
 import org.apache.log4j.xml.DOMConfigurator;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import com.krpc.common.serializer.SerializeUtil;
 import com.krpc.server.entity.User1;

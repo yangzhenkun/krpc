@@ -52,7 +52,7 @@ public class KRPC {
 			
 			serviceParams.setServiceName(serviceNode.attributeValue("name"));
 			
-			Element loadBalanceNode = serviceNode.element("Localbalance");
+			Element loadBalanceNode = serviceNode.element("Loadbalance");
 			Element serverNode = loadBalanceNode.element("Server");
 			serviceParams.setDeadTimeout(serverNode.attributeValue("deadTimeout"));
 			List<Element> addrNodes = serverNode.elements("addr");

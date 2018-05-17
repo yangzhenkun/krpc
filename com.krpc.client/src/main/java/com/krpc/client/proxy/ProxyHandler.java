@@ -32,7 +32,7 @@ public class ProxyHandler implements InvocationHandler {
 		request.setMethodName(method.getName());
 		request.setServiceImplName(serviceImplName);
 		Class[] clazz = method.getParameterTypes();
-		request.setParamsTypes(Arrays.asList(clazz));
+//		request.setParamsTypes(Arrays.asList(clazz));
 		request.setParamsValues(Arrays.asList(args));
 		
 		

@@ -3,16 +3,12 @@ package com.krpc.server.serializer;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
-import java.util.List;
-
-import org.junit.Test;
 
 import com.krpc.common.entity.Request;
 import com.krpc.common.serializer.SerializeUtil;
 
 public class SerializerTest {
 
-	@Test
 	public void test() throws Exception {
 
 		URL[] urls = new URL[2];
@@ -37,7 +33,6 @@ public class SerializerTest {
 
 	}
 
-	@Test
 	public void testLoader() {
 		try {
 			URL[] urls = new URL[2];
@@ -57,10 +52,10 @@ public class SerializerTest {
 				System.out.println(o);
 			}
 			
-			for(Class c:request.getParamsTypes()){
-				System.out.println(c);
-			}
-			
+//			for(Class c:request.getParamsTypes()){
+//				System.out.println(c);
+//			}
+//			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

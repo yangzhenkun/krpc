@@ -30,8 +30,8 @@ public class TimeClient {
 
 			@Override
 			protected void initChannel(SocketChannel ch) throws Exception {
-				ch.pipeline().addLast(new TimeClientHandler());
 				
+				ch.pipeline().addLast(new TimeClientHandler());
 			}
 		});
 		

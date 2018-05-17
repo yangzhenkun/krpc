@@ -14,12 +14,14 @@ public class RequestHandler {
 	
 	
 	public static byte[] handler(byte[] requestBytes){
-		
+		System.out.println("服务端收到的数据:"+requestBytes.length);
 		Request request = (Request) SerializeUtil.deserialize(requestBytes,Global.getInstance().getClassLoader());
 
 		Object object = ServiceInvoke.invoke(request);
-		
-		return SerializeUtil.serialize(object);
+		System.out.println("服务端返回的类:"+object);
+		byte[] response = SerializeUtil.serialize(object);
+		System.out.println("服务端返回的数据:"+response.length);
+		return response;
 		
 	}
 	

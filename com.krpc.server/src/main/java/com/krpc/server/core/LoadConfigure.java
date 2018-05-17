@@ -14,7 +14,10 @@ import java.util.Map.Entry;
 import org.dom4j.Document;
 import org.dom4j.Element;
 import org.dom4j.io.SAXReader;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import com.krpc.server.BootStrap;
 import com.krpc.server.entity.Global;
 
 /**
@@ -24,7 +27,9 @@ import com.krpc.server.entity.Global;
  *
  */
 public class LoadConfigure {
-
+	
+	static Logger log = LoggerFactory.getLogger(LoadConfigure.class);
+	
 	/**
 	 * 加载该服务下的配置文件,并初始化相关内容
 	 * @param serviceRootPath
@@ -80,11 +85,15 @@ public class LoadConfigure {
 
 		URL[] jarURLS = new URL[jarFiles.length];
 		for (int i = 0; i < jarFiles.length; i++) {
+			log.info("加载的类有:"+jarFiles[i].getName());
 			jarURLS[i] = jarFiles[i].toURI().toURL();
 		}
 
 		URLClassLoader classLoader = new URLClassLoader(jarURLS, ClassLoader.getSystemClassLoader());
 		
+		/**
+		 * 懒加载模式，在启动服务时，初始化所有实现类
+		 */
 		Map<String,Object> instances = new HashMap<String,Object>();
 		Map<String,Class> types = new HashMap<String,Class>();
 		Iterator<Entry<String, String>> it = services.entrySet().iterator();
