@@ -1,5 +1,6 @@
 package com.krpc.server.core;
 
+import com.alibaba.fastjson.JSON;
 import com.krpc.common.entity.Request;
 import com.krpc.common.serializer.SerializeUtil;
 import com.krpc.server.entity.Global;
@@ -13,14 +14,10 @@ import com.krpc.server.entity.Global;
 public class RequestHandler {
 	
 	
-	public static byte[] handler(byte[] requestBytes){
-		System.out.println("服务端收到的数据:"+requestBytes.length);
-		Request request = (Request) SerializeUtil.deserialize(requestBytes,Global.getInstance().getClassLoader());
-
+	public static byte[] handler(byte[] requestBytes) throws ClassNotFoundException{
+		Request request = JSON.parseObject(requestBytes,Request.class,null);
 		Object object = ServiceInvoke.invoke(request);
-		System.out.println("服务端返回的类:"+object);
-		byte[] response = SerializeUtil.serialize(object);
-		System.out.println("服务端返回的数据:"+response.length);
+		byte[] response = JSON.toJSONBytes(object);
 		return response;
 		
 	}

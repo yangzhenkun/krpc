@@ -1,5 +1,6 @@
 package com.krpc.client.net;
 
+import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -19,6 +20,7 @@ public class TCPClient {
 		try {
 			os.write(sendData);
 			os.flush();
+			socket.shutdownOutput();
 			resultArray = IOUtils.toByteArray(is);
 		} catch (Exception e) {
 			e.printStackTrace();

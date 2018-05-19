@@ -17,9 +17,11 @@ public class Request implements Serializable{
 	private String methodName;
 	//调用方法参数的 Class
 //	private List<Class> paramsTypes;
+	private List<String> paramsTypesName;
 	
 	//调用方法参数的 实例,顺序与上面的Class保持一致
 	private List<Object> paramsValues;
+	
 	
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -48,10 +50,18 @@ public class Request implements Serializable{
 	public void setParamsValues(List<Object> paramsValues) {
 		this.paramsValues = paramsValues;
 	}
+	public List<String> getParamsTypesName() {
+		return paramsTypesName;
+	}
+	public void setParamsTypesName(List<String> paramsTypesName) {
+		this.paramsTypesName = paramsTypesName;
+	}
 	@Override
 	public String toString() {
-		return "Request [serviceImplName=" + serviceImplName + ", methodName=" + methodName + ", paramsTypes="
-				+/* paramsTypes +*/ ", paramsValues=" + paramsValues + "]";
+		return "Request [serviceImplName=" + serviceImplName + ", methodName=" + methodName + ", paramsTypesName="
+				+ paramsTypesName + ", paramsValues=" + paramsValues + "]";
 	}
+	
+	
 	
 }

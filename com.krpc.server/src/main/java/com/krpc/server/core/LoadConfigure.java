@@ -88,8 +88,11 @@ public class LoadConfigure {
 			log.info("加载的类有:"+jarFiles[i].getName());
 			jarURLS[i] = jarFiles[i].toURI().toURL();
 		}
-
 		URLClassLoader classLoader = new URLClassLoader(jarURLS, ClassLoader.getSystemClassLoader());
+		
+//		DynamicClassLoader classLoader = new DynamicClassLoader();
+//		classLoader.addFolder(serviceLibPath);
+		
 		
 		/**
 		 * 懒加载模式，在启动服务时，初始化所有实现类

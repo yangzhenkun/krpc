@@ -23,7 +23,7 @@ public class Server {
 
 					@Override
 					protected void initChannel(SocketChannel ch) throws Exception {
-						ch.pipeline().addLast(new TimeServerHandler());
+						ch.pipeline().addLast(new MyServerHandler());
 
 					}
 				}).option(ChannelOption.SO_BACKLOG, 128)// 5

@@ -10,11 +10,16 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
 
 	@Override
 	public void channelActive(ChannelHandlerContext ctx) throws Exception {
-
-		final ByteBuf time = ctx.alloc().buffer(4);
-
-		time.writeInt((int) (System.currentTimeMillis() / 1000L + 2208988800L));
-		final ChannelFuture f = ctx.writeAndFlush(time);
+		System.out.println("有连接进来");
+		
+		byte[] res = "world".getBytes();
+		
+//		time.writeInt((int) (System.currentTimeMillis() / 1000L + 2208988800L));
+		ByteBuf time = ctx.alloc().buffer(res.length);
+		time.writeBytes(res);
+		ctx.writeAndFlush(time);
+		
+		/*final ChannelFuture f = 
 		f.addListener(new ChannelFutureListener() {
 
 			@Override
@@ -24,7 +29,7 @@ public class TimeServerHandler extends ChannelInboundHandlerAdapter {
 				ctx.close();
 
 			}
-		});
+		});*/
 
 	}
 

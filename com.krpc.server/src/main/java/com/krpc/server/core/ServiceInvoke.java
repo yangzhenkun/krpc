@@ -7,6 +7,7 @@ import java.lang.reflect.Parameter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSON;
 import com.krpc.common.entity.Request;
 import com.krpc.server.entity.Global;
 
@@ -20,7 +21,7 @@ public class ServiceInvoke {
 
 	static Logger log = LoggerFactory.getLogger(ServiceInvoke.class);
 	
-	public static Object invoke(Request request) {
+	public static Object invoke(Request request) throws ClassNotFoundException {
 
 		Object result = null;
 		Object service = Global.getInstance().getServiceImpl(request.getServiceImplName());
@@ -28,15 +29,24 @@ public class ServiceInvoke {
 
 			Method method;
 			try {
-//				Class[] requestParamsType = (Class[]) SerializeUtil.deserialize(request.getParamsTypes(), Global.getInstance().getClassLoader());
-//				Object[] requestParamsValue = (Object[]) SerializeUtil.deserialize(request.getParamsValues(), Global.getInstance().getClassLoader());
-				
-				Class[] requestParamTypes = new Class[request.getParamsValues().size()];
-//				request.getParamsTypes().toArray(requestParamTypes);
 				Object[] requestParmsValues = new Object[request.getParamsValues().size()];
-				request.getParamsValues().toArray(requestParmsValues);
-				for(int i=0;i<requestParamTypes.length;i++){
-					requestParmsValues[i]=requestParamTypes[i].getClass();
+				Class[] requestParamTypes = new Class[request.getParamsTypesName().size()];
+				
+				
+				for(int i=0;i<request.getParamsTypesName().size();i++){
+					requestParamTypes[i]=Class.forName(request.getParamsTypesName().get(i), false, Global.getInstance().getClassLoader());
+					
+					if(request.getParamsValues().get(i)==null){
+						requestParmsValues[i]=null;
+						continue;
+					}
+					
+					if(requestParamTypes[i]==String.class){
+						requestParmsValues[i]=request.getParamsValues().get(i).toString();
+					}else{
+						requestParmsValues[i]=JSON.parseObject(request.getParamsValues().get(i).toString(),requestParamTypes[i]);
+					}
+					
 				}
 				
 				

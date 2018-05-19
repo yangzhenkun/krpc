@@ -17,12 +17,19 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
         buf.readBytes(bytes);  
         
         byte[] responseBytes = RequestHandler.handler(bytes);
+        ByteBuf resbuf = ctx.alloc().buffer(responseBytes.length);
+        resbuf.writeBytes(responseBytes);
+		ctx.writeAndFlush(resbuf);
         
-        
-        ByteBuf buffer = Unpooled.copiedBuffer(responseBytes);  
-        ctx.write(buffer);
 	}
 
+	@Override
+	public void exceptionCaught(ChannelHandlerContext ctx, Throwable cause) throws Exception {
+		cause.printStackTrace();
+		ctx.close();
+	}
+
+	
 	
 	
 	
