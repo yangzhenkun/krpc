@@ -8,13 +8,10 @@ public class ProxyFactory {
 	 * @param strUrl krpc://serviceName/serviceImplName
 	 * @return
 	 */
-	public static <T> T  create(Class<?> type, String serviceAddress) {//<T> T返回任意类型的数据？  返回代理的实例  泛型
+	public static <T> T  create(Class<?> type, String serviceName,String serviceImpleName) {//<T> T返回任意类型的数据？  返回代理的实例  泛型
     	
-		serviceAddress = serviceAddress.replace("krpc://", "");
-		String[] params = serviceAddress.split("/");
 		
-		
-		ProxyHandler handler = new ProxyHandler(params[0],params[1]);
+		ProxyHandler handler = new ProxyHandler(serviceName,serviceImpleName);
 		
 		
 		return (T) handler.bind(new Class<?>[]{type});
