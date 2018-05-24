@@ -1,4 +1,4 @@
-![]([图片]https://raw.githubusercontent.com/yangzhenkun/krpc/master/logo.png)
+![Logo](https://raw.githubusercontent.com/yangzhenkun/krpc/master/logo.png)
 
 ### 如何使用
 
