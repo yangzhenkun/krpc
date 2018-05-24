@@ -1,17 +1,20 @@
-
-
-
-
-  				 
-								    __ __ ____  ____  ______
-								   / //_// __ \/ __ \/ ____/
-								  / .<  / /_/ / /_/ / /     
-								 / /| |/ _. _/ ____/ /___   
-								/_/ |_/_/ |_/_/    \____/   
-                            
-
-
-
+<html>
+<style>
+    .rpc{font-size:150px;font-weight:800;font-style: oblique}
+    #k{color:rgb(66, 133, 244);}
+    #r{color:rgb(234, 67, 53);}
+    #p{color:rgb(251, 188, 5);}
+    #c{color:rgb(52, 168, 83);}
+    .rpc-div{text-align: center;height:200px;border-bottom: solid 1px  #eee}
+</style>
+<div class="rpc-div">
+    <span class="rpc" id="k">K</span>
+    <span class="rpc" id="r">R</span>
+    <span class="rpc" id="p">P</span>
+    <span class="rpc" id="c">C</span>
+</div>
+</body>
+</html>
 
 
 ### 如何使用
