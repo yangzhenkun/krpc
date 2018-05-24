@@ -9,8 +9,6 @@ import java.util.regex.Pattern;
 
 import org.junit.Test;
 
-import com.krpc.com.krpc.demo.User;
-
 public class KRPCTest {
 
 	@Test
@@ -27,9 +25,6 @@ public class KRPCTest {
 	@Test
 	public void testGetName() {
 
-		List<List<User>> userss = new ArrayList<List<User>>();
-
-		System.out.println(userss.getClass().getName());
 
 	}
 
@@ -53,50 +48,6 @@ public class KRPCTest {
 		String map = "java.util.*Map";
 
 		Object[] args = new Object[3];
-
-		User user1 = new User();
-		user1.setId(1);
-		user1.setName("yasin");
-		user1.setPhone(18810572463L);
-
-		User user2 = new User();
-		user2.setId(2);
-		user2.setName("test2");
-		user2.setPhone(18810572464L);
-
-		User user3 = new User();
-		user3.setId(3);
-		user3.setName("test3");
-		user3.setPhone(18810572465L);
-
-		List<User> users = new ArrayList<User>();
-		users.add(user1);
-		users.add(user2);
-		users.add(user3);
-
-		Map<String, User> umap = new HashMap<String, User>();
-		umap.put("1", user1);
-		umap.put("2", user2);
-		umap.put("3", user3);
-
-		args[0] = user1;
-		args[1] = users;
-		args[2] = umap;
-
-		List<Class> classes = new ArrayList<Class>();
-
-		for (Object o : args) {
-
-			String typeName = o.getClass().getName();
-			if (Pattern.matches(list, typeName)) {
-
-			} else if (Pattern.matches(map, typeName)) {
-
-			} else {
-
-			}
-
-		}
 
 	}
 

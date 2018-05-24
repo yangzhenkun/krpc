@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<configuration>
+
+
+<!-- 连接相关参数 -->
+<property>
+	<connection ip="127.0.0.1" port="17999" timeout="3000"/>
+	<netty workerCount="1"/>
+</property>
+
+
+<!-- 所有能提供服务的接口 -->
+<services>
+	<service name="orderService" impl="com.a123.service.order.impl.OrderServer"/>
+	<service name="userService" impl="com.a123.service.user.impl.UserService"/>
+</services>
+
+
+
+</configuration>
