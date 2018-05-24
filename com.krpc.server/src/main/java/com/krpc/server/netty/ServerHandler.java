@@ -3,10 +3,14 @@ package com.krpc.server.netty;
 import com.krpc.server.core.RequestHandler;
 
 import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
+/**
+ * Netty服务端收发数据
+ * @author yangzhenkun
+ *
+ */
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
 	@Override

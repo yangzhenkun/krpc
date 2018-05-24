@@ -3,9 +3,9 @@ package com.krpc.client.proxy;
 public class ProxyFactory {
 	
 	/**
-	 * 
 	 * @param type
-	 * @param strUrl krpc://serviceName/serviceImplName
+	 * @param serviceName
+	 * @param serviceImpleName
 	 * @return
 	 */
 	public static <T> T  create(Class<?> type, String serviceName,String serviceImpleName) {//<T> T返回任意类型的数据？  返回代理的实例  泛型

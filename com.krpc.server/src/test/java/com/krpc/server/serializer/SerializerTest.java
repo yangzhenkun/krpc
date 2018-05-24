@@ -4,7 +4,6 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.net.URLClassLoader;
 
-import com.krpc.common.entity.Request;
 import com.krpc.common.serializer.SerializeUtil;
 
 public class SerializerTest {
@@ -34,31 +33,38 @@ public class SerializerTest {
 	}
 
 	public void testLoader() {
-		try {
-			URL[] urls = new URL[2];
-			urls[0] = new URL("file:///D://krpc//service//demo//lib//a.jar");
-			urls[1] = new URL("file:///D://krpc//service//demo//lib//a.impl.jar");
-			URLClassLoader classLoader = new URLClassLoader(urls, ClassLoader.getSystemClassLoader());
-			byte[] requestb = SerializeUtil.read("D://request.txt");
-			Request request = (Request) SerializeUtil.deserialize(requestb,classLoader);
-			System.out.println(request);
-//			List<Object> os =  (List<Object>) SerializeUtil.deserialize(request.getParamsValues(), classLoader);
-//			List<Class> clazz =  (List<Class>) SerializeUtil.deserialize(request.getParamsTypes(), classLoader);
-			
-//			Object[] os =  (Object[] )SerializeUtil.deserialize(request.getParamsValues(), classLoader);
-//			Class[] clazz = ( Class[]) SerializeUtil.deserialize(request.getParamsTypes(), classLoader);
-			
-			for(Object o:request.getParamsValues()){
-				System.out.println(o);
-			}
-			
-//			for(Class c:request.getParamsTypes()){
-//				System.out.println(c);
-//			}
-//			
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		// try {
+		// URL[] urls = new URL[2];
+		// urls[0] = new URL("file:///D://krpc//service//demo//lib//a.jar");
+		// urls[1] = new
+		// URL("file:///D://krpc//service//demo//lib//a.impl.jar");
+		// URLClassLoader classLoader = new URLClassLoader(urls,
+		// ClassLoader.getSystemClassLoader());
+		// byte[] requestb = SerializeUtil.read("D://request.txt");
+		// Request request = (Request)
+		// SerializeUtil.deserialize(requestb,classLoader);
+		// System.out.println(request);
+		// List<Object> os = (List<Object>)
+		// SerializeUtil.deserialize(request.getParamsValues(), classLoader);
+		// List<Class> clazz = (List<Class>)
+		// SerializeUtil.deserialize(request.getParamsTypes(), classLoader);
+		//
+		// Object[] os = (Object[]
+		// )SerializeUtil.deserialize(request.getParamsValues(), classLoader);
+		// Class[] clazz = ( Class[])
+		// SerializeUtil.deserialize(request.getParamsTypes(), classLoader);
+		//
+		// for(Object o:request.getParamsValues()){
+		// System.out.println(o);
+		// }
+		//
+		// for(Class c:request.getParamsTypes()){
+		// System.out.println(c);
+		// }
+		//
+		// } catch (Exception e) {
+		// e.printStackTrace();
+		// }
 
 	}
 

@@ -1,8 +1,9 @@
 package com.krpc.server.core;
 
-import com.alibaba.fastjson.JSON;
+import java.io.IOException;
+
 import com.krpc.common.entity.Request;
-import com.krpc.common.serializer.SerializeUtil;
+import com.krpc.common.serializer.HessianUtil;
 import com.krpc.server.entity.Global;
 
 /**
@@ -14,10 +15,11 @@ import com.krpc.server.entity.Global;
 public class RequestHandler {
 	
 	
-	public static byte[] handler(byte[] requestBytes) throws ClassNotFoundException{
-		Request request = JSON.parseObject(requestBytes,Request.class,null);
+	public static byte[] handler(byte[] requestBytes) throws ClassNotFoundException, IOException{
+		Request request = (Request) HessianUtil.deserialize(requestBytes,Global.getInstance().getClassLoader());
+		
 		Object object = ServiceInvoke.invoke(request);
-		byte[] response = JSON.toJSONBytes(object);
+		byte[] response = HessianUtil.serialize(object);
 		return response;
 		
 	}

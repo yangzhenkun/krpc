@@ -2,12 +2,10 @@ package com.krpc.server.core;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Parameter;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.alibaba.fastjson.JSON;
 import com.krpc.common.entity.Request;
 import com.krpc.server.entity.Global;
 
@@ -18,7 +16,10 @@ import com.krpc.server.entity.Global;
  *
  */
 public class ServiceInvoke {
-
+	
+	private final String LIST_PATTERN = "java.util.*List";
+	private final String MAP_PATTERN = "java.util.*Map";
+	
 	static Logger log = LoggerFactory.getLogger(ServiceInvoke.class);
 	
 	public static Object invoke(Request request) throws ClassNotFoundException {
@@ -30,32 +31,29 @@ public class ServiceInvoke {
 			Method method;
 			try {
 				Object[] requestParmsValues = new Object[request.getParamsValues().size()];
-				Class[] requestParamTypes = new Class[request.getParamsTypesName().size()];
+				Class[] requestParamTypes = new Class[request.getParamsValues().size()];
 				
 				
 				for(int i=0;i<request.getParamsTypesName().size();i++){
+					
 					requestParamTypes[i]=Class.forName(request.getParamsTypesName().get(i), false, Global.getInstance().getClassLoader());
-					
-					if(request.getParamsValues().get(i)==null){
-						requestParmsValues[i]=null;
-						continue;
-					}
-					
-					if(requestParamTypes[i]==String.class){
-						requestParmsValues[i]=request.getParamsValues().get(i).toString();
-					}else{
-						requestParmsValues[i]=JSON.parseObject(request.getParamsValues().get(i).toString(),requestParamTypes[i]);
-					}
+					requestParmsValues[i]=request.getParamsValues().get(i);
+//					if(request.getParamsValues().get(i)==null){
+//						requestParmsValues[i]=null;
+//						continue;
+//					}
+//					
+//					if(requestParamTypes[i]==String.class){
+//						requestParmsValues[i]=request.getParamsValues().get(i).toString();
+//					}else{
+//						requestParmsValues[i]=JSON.parseObject(request.getParamsValues().get(i).toString(),requestParamTypes[i]);
+//					}
 					
 				}
 				
 				
 				method = clazz.getMethod(request.getMethodName(),requestParamTypes);
 				method.setAccessible(true);
-				
-				for(Parameter p : method.getParameters()){
-					System.out.println(p.getType());
-				}
 				
 				result = method.invoke(service, requestParmsValues);
 				
@@ -75,5 +73,9 @@ public class ServiceInvoke {
 
 		return result;
 	}
+	
+	
+	
+	
 
 }

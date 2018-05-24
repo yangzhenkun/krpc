@@ -11,8 +11,7 @@
 		
         <Loadbalance>
             <Server deadTimeout="00:00:10">
-                <addr name="demo1" host="scf1.58fxp.com" port="17602" maxCurrentUser="50"/>
-                <addr name="demo2" host="scf2.58fxp.com" port="17602" maxCurrentUser="50"/>
+                <addr name="demo1" host="10.252.26.187" port="17999" maxCurrentUser="50"/>
             </Server>
         </Loadbalance>
     </Service>

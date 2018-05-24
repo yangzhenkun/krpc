@@ -17,7 +17,6 @@ import org.dom4j.io.SAXReader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.krpc.server.BootStrap;
 import com.krpc.server.entity.Global;
 
 /**
@@ -89,9 +88,6 @@ public class LoadConfigure {
 			jarURLS[i] = jarFiles[i].toURI().toURL();
 		}
 		URLClassLoader classLoader = new URLClassLoader(jarURLS, ClassLoader.getSystemClassLoader());
-		
-//		DynamicClassLoader classLoader = new DynamicClassLoader();
-//		classLoader.addFolder(serviceLibPath);
 		
 		
 		/**

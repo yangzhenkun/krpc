@@ -1,8 +1,12 @@
 package com.krpc.server.entity;
 
-import java.net.URLClassLoader;
 import java.util.Map;
 
+/**
+ * 服务端全局参数
+ * @author yangzhenkun
+ *
+ */
 public class Global {
 	
 	private Global(){};
@@ -34,8 +38,8 @@ public class Global {
 	//服务实现类缓存
 	private Map<String,Class> serviceClass;
 	
-	private URLClassLoader classLoader;
-
+	private ClassLoader classLoader;
+	
 	public String getServiceName() {
 		return serviceName;
 	}
@@ -92,11 +96,11 @@ public class Global {
 		this.serviceClass = serviceClass;
 	}
 
-	public URLClassLoader getClassLoader() {
+	public ClassLoader getClassLoader() {
 		return classLoader;
 	}
 
-	public void setClassLoader(URLClassLoader classLoader) {
+	public void setClassLoader(ClassLoader classLoader) {
 		this.classLoader = classLoader;
 	} 
 	
