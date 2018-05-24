@@ -1,9 +1,4 @@
-<p class="rpc-div"  style="text-align: center;height:260px;border-bottom: solid 1px  #eee">
-    <span class="rpc" id="k" style="color:rgb(66, 133, 244);font-size:150px;font-weight:800;font-style: oblique">K</span>
-    <span class="rpc" id="r" style="color:rgb(234, 67, 53);font-size:150px;font-weight:800;font-style: oblique">R</span>
-    <span class="rpc" id="p" style="color:rgb(251, 188, 5);font-size:150px;font-weight:800;font-style: oblique">P</span>
-    <span class="rpc" id="c" style="color:rgb(52, 168, 83);font-size:150px;font-weight:800;font-style: oblique">C</span>
-</p>
+![]([图片]https://raw.githubusercontent.com/yangzhenkun/krpc/master/logo.png)
 
 ### 如何使用
 
