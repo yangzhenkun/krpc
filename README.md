@@ -8,7 +8,7 @@
 解压后server文件夹中就是服务端环境，如demo所示，server/service中有一个user文件，就是我们部署的user服务，下面有两个必须的文件夹conf（配置文件）
 
 log4j.xml是该服务日志的标准的log4j配置文件，如果想修改日志路径
-```
+```java
 <!-- 输出日志到文件  每天一个文件 -->
   	<appender name="dailyRollingFile"
   		class="org.apache.log4j.DailyRollingFileAppender">
@@ -25,7 +25,7 @@ log4j.xml是该服务日志的标准的log4j配置文件，如果想修改日志
 
 server.xml文件为服务的配置文件
 
-```
+```xml
 <configuration>
 
 
@@ -54,7 +54,7 @@ server.xml文件为服务的配置文件
 
 **启动** 
 启动在server/bin里面，执行
-```
+```java
 java -jar com.krpc.server-0.0.1.jar 服务名
 ```
 命令，查看日志，如果看到  启动成功，监听端口***  的日志，恭喜你，服务端启动成功。
@@ -65,7 +65,7 @@ java -jar com.krpc.server-0.0.1.jar 服务名
 使用需要先调用KRPC.init("client配置文件")进行初始化
 配置在client/client.xml中
 
-```
+```java
 
 	<Service name="user" id="1" maxThreadCount="50">
 		<Commmunication>
@@ -82,7 +82,7 @@ java -jar com.krpc.server-0.0.1.jar 服务名
 ```
 
 sercie的name的值必须
-```
+```java
  
 	UserService service = ProxyFactory.create(UserService.class, "user", "userService");
 
