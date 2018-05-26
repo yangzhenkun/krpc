@@ -1,5 +1,5 @@
 ![](https://img.shields.io/badge/Java-1.8-green.svg)
-![](https://img.shields.io/docker/build/jrottenberg/ffmpeg.svg)
+
 
 ![Logo](https://raw.githubusercontent.com/yangzhenkun/krpc/master/logo.png)
 
