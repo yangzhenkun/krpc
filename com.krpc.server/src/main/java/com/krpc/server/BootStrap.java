@@ -27,7 +27,7 @@ import io.netty.channel.socket.nio.NioServerSocketChannel;
  */
 public class BootStrap {
 
-	public static void main(String[] args) {
+	piublic static void main(String[] args) {
 		try {
 			if (args.length > 0) {
 				// 初始化项目路径
