@@ -1,7 +1,9 @@
 package com.krpc.server.core;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FilenameFilter;
+import java.io.OutputStreamWriter;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
@@ -13,7 +15,9 @@ import java.util.Map.Entry;
 
 import org.dom4j.Document;
 import org.dom4j.Element;
+import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
+import org.dom4j.io.XMLWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +46,7 @@ public class LoadConfigure {
 		// 读取该服务的配置文件
 		SAXReader reader = new SAXReader();
 		Document document = reader.read(new File(serviceConf + File.separator + "service.xml"));
+		document.setXMLEncoding("UTF-8");
 		Element node = document.getRootElement();
 
 		Element proNode = node.element("property");
@@ -50,7 +55,21 @@ public class LoadConfigure {
 		Element nettyNode = proNode.element("netty");
 
 		Global.getInstance().setIp(connectionNode.attributeValue("ip"));
-		Global.getInstance().setPort(Integer.parseInt(connectionNode.attributeValue("port")));
+		
+		if(Global.getInstance().getPort()==null) {
+			Global.getInstance().setPort(Integer.parseInt(connectionNode.attributeValue("port")));
+		}else {
+			connectionNode.setAttributeValue("port", String.valueOf(Global.getInstance().getPort()));
+			FileOutputStream fos = new FileOutputStream(serviceConf + File.separator + "service.xml");
+			OutputStreamWriter osw = new OutputStreamWriter(fos, "UTF-8");
+			OutputFormat of = new OutputFormat();
+			of.setEncoding("UTF-8");
+			XMLWriter write =new XMLWriter(osw,of);
+			write.write(document);
+			write.close();
+		}
+		
+		
 		Global.getInstance().setTimeout(Integer.parseInt(connectionNode.attributeValue("timeout")));
 
 		Map<String, String> serviceMap = new HashMap<String, String>();

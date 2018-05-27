@@ -32,6 +32,10 @@ public class BootStrap {
 			if (args.length > 0) {
 				// 初始化项目路径
 				String serviceName = args[0];
+				if(args.length==2) {
+					Global.getInstance().setPort(Integer.parseInt(args[1]));
+				}
+				
 				Global.getInstance().setServiceName(serviceName);
 				String userDir = System.getProperty("user.dir");
 				String rootPath = userDir + File.separator + ".." + File.separator;
