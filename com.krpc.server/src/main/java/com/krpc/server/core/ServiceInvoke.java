@@ -36,18 +36,29 @@ public class ServiceInvoke {
 				
 				for(int i=0;i<request.getParamsTypesName().size();i++){
 					
-					requestParamTypes[i]=Class.forName(request.getParamsTypesName().get(i), false, Global.getInstance().getClassLoader());
+					String className = request.getParamsTypesName().get(i);
+					//基本类型不能通过class.forname获取
+					if("byte".equals(className)){
+						requestParamTypes[i]=byte.class;
+					}else if("short".equals(className)){
+						requestParamTypes[i]=short.class;
+					}else if("int".equals(className)){
+						requestParamTypes[i]=int.class;
+					}else if("long".equals(className)){
+						requestParamTypes[i]=long.class;
+					}else if("float".equals(className)){
+						requestParamTypes[i]=float.class;
+					}else if("double".equals(className)){
+						requestParamTypes[i]=double.class;
+					}else if("boolean".equals(className)){
+						requestParamTypes[i]=boolean.class;
+					}else if("char".equals(className)){
+						requestParamTypes[i]=char.class;
+					}else{
+						requestParamTypes[i]=Class.forName(className, false, Global.getInstance().getClassLoader());
+					}
+					
 					requestParmsValues[i]=request.getParamsValues().get(i);
-//					if(request.getParamsValues().get(i)==null){
-//						requestParmsValues[i]=null;
-//						continue;
-//					}
-//					
-//					if(requestParamTypes[i]==String.class){
-//						requestParmsValues[i]=request.getParamsValues().get(i).toString();
-//					}else{
-//						requestParmsValues[i]=JSON.parseObject(request.getParamsValues().get(i).toString(),requestParamTypes[i]);
-//					}
 					
 				}
 				
