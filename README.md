@@ -97,9 +97,9 @@ sercie的name的值必须
 
 <del>3.1 (已解决)
 
-接口包参数中目前不支持基本类型，必须使用其包装类：</del>
+<del>接口包参数中目前不支持基本类型，必须使用其包装类：
 
-<del>例如：int必须使用Integer等</del>
+<del>例如：int必须使用Integer等
 
 3.2
 krpc.rar中的krpc相关包均为上面源码中生成
