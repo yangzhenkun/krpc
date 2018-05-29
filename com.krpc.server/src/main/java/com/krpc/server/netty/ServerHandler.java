@@ -19,12 +19,12 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 		ByteBuf buf = (ByteBuf)msg;  
         byte[] bytes = new byte[buf.readableBytes()];  
         buf.readBytes(bytes);  
-        
+        System.out.println(bytes.length);
         byte[] responseBytes = RequestHandler.handler(bytes);
         ByteBuf resbuf = ctx.alloc().buffer(responseBytes.length);
         resbuf.writeBytes(responseBytes);
 		ctx.writeAndFlush(resbuf);
-        
+        buf.release();
 	}
 
 	@Override
