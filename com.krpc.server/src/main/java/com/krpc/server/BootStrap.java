@@ -11,6 +11,7 @@ import com.krpc.server.entity.Global;
 import com.krpc.server.netty.ServerHandler;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.channel.AdaptiveRecvByteBufAllocator;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
@@ -53,7 +54,6 @@ public class BootStrap {
 				// 启动netty server
 				EventLoopGroup bossGroup = new NioEventLoopGroup();
 				EventLoopGroup workerGroup = new NioEventLoopGroup();
-
 				ServerBootstrap bootstrap = new ServerBootstrap();
 
 				bootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
@@ -65,7 +65,8 @@ public class BootStrap {
 								ch.pipeline().addLast(new ServerHandler());
 							}
 						}).option(ChannelOption.SO_BACKLOG, 128)
-						.childOption(ChannelOption.SO_KEEPALIVE, true);
+						.childOption(ChannelOption.SO_KEEPALIVE, true)
+						.childOption(ChannelOption.RCVBUF_ALLOCATOR, new AdaptiveRecvByteBufAllocator(64,Global.getInstance().getMaxBuf(),Global.getInstance().getMaxBuf()));
 				
 				ChannelFuture f = bootstrap.bind(Global.getInstance().getPort()).sync(); 
 				log.info("启动成功,监听端口:"+Global.getInstance().getPort());

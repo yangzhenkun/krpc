@@ -22,6 +22,9 @@ public class RequestHandler {
 		
 		Address addr = LoadBalance.loadbalance(serviceName);
 		byte[] requestBytes = CompressUtil.compress(HessianUtil.serialize(request));
+		
+		log.debug("参数:"+requestBytes.length+":::::"+requestBytes[8]);
+		
 		byte[] responseBytessrc = CompressUtil.uncompress( TCPClient.send(requestBytes, addr.getHost(), addr.getPort(),KRPC.getService(serviceName).getTimeout()));
 		
 		return HessianUtil.deserialize(responseBytessrc,Thread.currentThread().getContextClassLoader());

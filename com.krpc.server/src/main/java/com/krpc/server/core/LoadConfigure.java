@@ -53,7 +53,9 @@ public class LoadConfigure {
 
 		Element connectionNode = proNode.element("connection");
 		Element nettyNode = proNode.element("netty");
-
+		
+		Global.getInstance().setMaxBuf(Integer.parseInt(nettyNode.attributeValue("maxBuf")));
+		
 		Global.getInstance().setIp(connectionNode.attributeValue("ip"));
 		
 		if(Global.getInstance().getPort()==null) {

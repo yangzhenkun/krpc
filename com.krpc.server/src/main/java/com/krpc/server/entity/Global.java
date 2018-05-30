@@ -23,6 +23,8 @@ public class Global {
 		return SingleHolder.INSTANCE;
 	}
 	
+	//netty接受缓冲区大小
+	private Integer MaxBuf = 1024;
 	
 	//服务应用名字
 	private   String serviceName;
@@ -102,6 +104,16 @@ public class Global {
 
 	public void setClassLoader(ClassLoader classLoader) {
 		this.classLoader = classLoader;
+	}
+
+	public Integer getMaxBuf() {
+		return MaxBuf;
+	}
+
+	public void setMaxBuf(Integer maxBuf) {
+		MaxBuf = maxBuf;
 	} 
+	
+	
 	
 }
