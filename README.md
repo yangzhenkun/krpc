@@ -36,7 +36,8 @@ server.xml文件为服务的配置文件
 	<property>
 		<!-- 该服务监听的本机IP和tcp端口 -->
 		<connection ip="127.0.0.1" port="17999" timeout="3000"/>
-		<netty workerCount="1"/>
+		<!-- 最大接受请求（字节,默认值是1024） -->
+		<netty maxBuf="655350"/>
 	</property>
 	
 	
@@ -70,15 +71,14 @@ java -jar com.krpc.server-0.0.1.jar 服务名
 
 ```java
 
+	<!-- 所连接的服务配置文件 name的值可以任意指定，只要在ProxyFactory.create的第二个参数值相同即可 -->
+    <!--用户服务 -->
 	<Service name="user" id="1" maxThreadCount="50">
-		<Commmunication>
-            <SocketPool bufferSize="4096" minPoolSize="1" maxPoolSize="5" nagle="true" autoShrink="00:00:20" sendTimeout="00:00:10" receiveTimeout="00:00:10" waitTimeout="00:00:01" maxPakageSize="102400" protected="true"/>
-            <Protocol  encoder="UTF-8" compressType="UnCompress"/>
-        </Commmunication>
 		
         <Loadbalance>
-            <Server deadTimeout="00:00:10">
-                <addr name="user1" host="127.0.0.1" port="17999" maxCurrentUser="50"/>
+			<!-- 请求超时时间(ms) -->
+            <Server timeout="10000">
+                <addr name="user1" host="127.0.0.1" port="17666" maxCurrentUser="50"/>
             </Server>
         </Loadbalance>
     </Service>
