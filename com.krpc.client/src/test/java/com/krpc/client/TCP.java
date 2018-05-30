@@ -20,7 +20,7 @@ public class TCP {
 		String req = "hello";
 
 		try {
-			byte[] res = TCPClient.send(req.getBytes(), "127.0.0.1", 17999);
+			byte[] res = TCPClient.send(req.getBytes(), "127.0.0.1", 17999,10);
 
 			String response = new String(res);
 

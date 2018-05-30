@@ -10,21 +10,15 @@ import java.util.List;
  */
 public class ServiceParams {
 
-	private String deadTimeout;
+	private int timeout;
 	private List<Address> addresses;
 	private String serviceName;
 	
-	public String getDeadTimeout() {
-		return deadTimeout;
-	}
 	public List<Address> getAddresses() {
 		return addresses;
 	}
 	public String getServiceName() {
 		return serviceName;
-	}
-	public void setDeadTimeout(String deadTimeout) {
-		this.deadTimeout = deadTimeout;
 	}
 	public void setAddresses(List<Address> addresses) {
 		this.addresses = addresses;
@@ -45,6 +39,12 @@ public class ServiceParams {
 			addresses.remove(index);
 		}
 		
+	}
+	public int getTimeout() {
+		return timeout;
+	}
+	public void setTimeout(int timeout) {
+		this.timeout = timeout;
 	}
 	
 }

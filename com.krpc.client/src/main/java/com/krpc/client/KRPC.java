@@ -54,7 +54,7 @@ public class KRPC {
 			
 			Element loadBalanceNode = serviceNode.element("Loadbalance");
 			Element serverNode = loadBalanceNode.element("Server");
-			serviceParams.setDeadTimeout(serverNode.attributeValue("deadTimeout"));
+			serviceParams.setTimeout(Integer.parseInt(serverNode.attributeValue("timeout")));
 			List<Element> addrNodes = serverNode.elements("addr");
 			
 			for(Element addrNode : addrNodes){

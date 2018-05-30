@@ -1,5 +1,6 @@
 package com.krpc.server.netty;
 
+import com.krpc.common.util.CompressUtil;
 import com.krpc.server.core.RequestHandler;
 
 import io.netty.buffer.ByteBuf;
@@ -19,8 +20,11 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 		ByteBuf buf = (ByteBuf)msg;  
         byte[] bytes = new byte[buf.readableBytes()];  
         buf.readBytes(bytes);  
-        System.out.println(bytes.length);
-        byte[] responseBytes = RequestHandler.handler(bytes);
+        
+        byte[] bytesrc = CompressUtil.uncompress(bytes);
+        
+        byte[] responseBytes = CompressUtil.compress(RequestHandler.handler(bytesrc));
+        
         ByteBuf resbuf = ctx.alloc().buffer(responseBytes.length);
         resbuf.writeBytes(responseBytes);
 		ctx.writeAndFlush(resbuf);

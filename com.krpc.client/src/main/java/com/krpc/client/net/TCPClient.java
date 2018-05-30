@@ -11,8 +11,10 @@ import org.apache.commons.io.IOUtils;
 public class TCPClient {
 
 	
-	public static byte[] send(byte[] sendData,String host,int port) throws UnknownHostException, IOException {
+	public static byte[] send(byte[] sendData,String host,int port,int timeout) throws UnknownHostException, IOException {
 		Socket socket = new Socket(host,port);
+		socket.setSoTimeout(timeout);
+		
 		OutputStream os = socket.getOutputStream();
 		InputStream is = socket.getInputStream();
 		byte resultArray[] = null;
