@@ -93,15 +93,18 @@ sercie的name的值必须
 跟create中第二个参数一直。第三个参数为服务端实现的名字，需要跟服务端的配置文件一直。
 
 
-#### 3.要注意的事情
+#### 3.未完成的事情
+<del>3.1 (已解决) <del>接口包参数中目前不支持基本类型，必须使用其包装类
 
-<del>3.1 (已解决)
+3.2 大访问量下压测  server端会发生dang住，或许是缓冲区相关问题
 
-<del>接口包参数中目前不支持基本类型，必须使用其包装类：
+3.3 客户端大调用量下  需要提高client请求的效率,或许可以做连接池
 
-<del>例如：int必须使用Integer等
+3.4 增加安全SOA  扩展方案
 
-3.2
+
+#### 4.要注意的事情
+
 krpc.rar中的krpc相关包均为上面源码中生成
 
 配置文件模板：https://github.com/yangzhenkun/krpc/tree/master/config_file_template
