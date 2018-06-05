@@ -1,5 +1,6 @@
 ![](https://img.shields.io/badge/Java-1.8-green.svg)
 [![Build Status](https://travis-ci.org/yangzhenkun/krpc.svg?branch=master)](https://travis-ci.org/yangzhenkun/krpc)
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg)](https://github.com/yangzhenkun/krpc/blob/master/LICENSE)
 
 ![Logo](https://raw.githubusercontent.com/yangzhenkun/krpc/master/logo.png)
 

@@ -1,6 +1,9 @@
 package com.krpc.server.entity;
 
+import java.lang.reflect.Method;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * 服务端全局参数
@@ -9,7 +12,9 @@ import java.util.Map;
  */
 public class Global {
 	
-	private Global(){};
+	private Global(){
+		methodCache = new ConcurrentHashMap<String,Method>();
+	};
 	
 	private static class SingleHolder{
 		private static final Global INSTANCE = new Global();
@@ -39,6 +44,8 @@ public class Global {
 	
 	//服务实现类缓存
 	private Map<String,Class> serviceClass;
+	
+	private Map<String,Method> methodCache;
 	
 	private ClassLoader classLoader;
 	
@@ -112,8 +119,24 @@ public class Global {
 
 	public void setMaxBuf(Integer maxBuf) {
 		MaxBuf = maxBuf;
-	} 
+	}
+
+	public Method getMethod(String serviceName,String methodName,List<String> paramsTypesName){
+		
+		return this.methodCache.get(buildKey(serviceName, methodName, paramsTypesName));
+	}
 	
+	public void putMethod(String serviceName,String methodName,List<String> paramsTypesName,Method method){
+		this.methodCache.put(buildKey(serviceName, methodName, paramsTypesName), method);
+	}
 	
-	
+	private String buildKey(String serviceName,String methodName,List<String> paramsTypesName){
+		StringBuilder methodKey = new StringBuilder(serviceName);
+		methodKey.append("-").append(methodName);
+		for(String s:paramsTypesName){
+			methodKey.append("-").append(s);
+		}
+		
+		return methodKey.toString();		
+	}
 }

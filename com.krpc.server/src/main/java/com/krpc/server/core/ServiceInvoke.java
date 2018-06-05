@@ -61,11 +61,12 @@ public class ServiceInvoke {
 					requestParmsValues[i]=request.getParamsValues().get(i);
 					
 				}
-				
-				
-				method = clazz.getMethod(request.getMethodName(),requestParamTypes);
-				method.setAccessible(true);
-				
+				method = Global.getInstance().getMethod(request.getServiceImplName(), request.getMethodName(), request.getParamsTypesName());
+				if(method==null){
+					method = clazz.getMethod(request.getMethodName(),requestParamTypes);
+					method.setAccessible(true);
+					Global.getInstance().putMethod(request.getServiceImplName(), request.getMethodName(), request.getParamsTypesName(), method);
+				}
 				result = method.invoke(service, requestParmsValues);
 				
 			} catch (NoSuchMethodException e) {
