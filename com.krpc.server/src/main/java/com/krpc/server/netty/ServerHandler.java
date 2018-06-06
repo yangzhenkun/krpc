@@ -18,7 +18,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  */
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
-	private Logger log = LoggerFactory.getLogger(ServerHandler.class);
+//	private Logger log = LoggerFactory.getLogger(ServerHandler.class);
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -26,12 +26,14 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 		ByteBuf buf = (ByteBuf) msg;
 		byte[] bytes = new byte[buf.readableBytes()];
 		buf.readBytes(bytes);
-		log.debug("接受大小:" + bytes.length + ":::::" + bytes[8]);
+//		log.debug("接受大小:" + bytes.length + ":::::" + bytes[8]);
+		System.out.println("接受大小:" + bytes.length + ":::::" + bytes[8]);
 
 		byte[] bytesrc = CompressUtil.uncompress(bytes);
 
 		byte[] responseBytes = CompressUtil.compress(RequestHandler.handler(bytesrc));
-
+//		log.debug("服务端返回大小:"+responseBytes.length);
+		System.out.println("服务端返回大小:"+responseBytes.length);
 		ByteBuf resbuf = ctx.alloc().buffer(responseBytes.length);
 		resbuf.writeBytes(responseBytes);
 		ctx.writeAndFlush(resbuf);
