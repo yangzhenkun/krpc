@@ -5,7 +5,7 @@ package com.krpc.client.entity;
  * @author yangzhenkun
  *
  */
-public class Address {
+public class Address111 {
 	
 	private String name;
 	private String host;
