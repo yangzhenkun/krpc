@@ -11,7 +11,6 @@ import org.junit.Test;
 
 public class KRPCTest {
 
-	@Test
 	public void testInit() {
 
 		try {
@@ -22,26 +21,12 @@ public class KRPCTest {
 
 	}
 
-	@Test
 	public void testGetName() {
 
 
 	}
 
-	@Test
-	public void testR() {
 
-		Class c = TestClass.class;
-
-		Class[] cs = c.getMethods()[0].getParameterTypes();
-
-		for (Class cc : cs) {
-			System.out.println(cc.getName());
-		}
-
-	}
-
-	@Test
 	public void test() {
 
 		String list = "java.util.*List";
