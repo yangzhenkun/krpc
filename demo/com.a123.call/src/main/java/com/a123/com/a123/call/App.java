@@ -42,10 +42,10 @@ public class App {
 				users.add(user);
 			}
 
-			Executor pool = Executors.newFixedThreadPool(10);
-			final CountDownLatch count = new CountDownLatch(10000);
+			Executor pool = Executors.newFixedThreadPool(4);
+			final CountDownLatch count = new CountDownLatch(20);
 			start = System.currentTimeMillis();
-			for (int i = 0; i < 10000; i++) {
+			for (int i = 0; i < 20; i++) {
 
 				pool.execute(new Runnable() {
 

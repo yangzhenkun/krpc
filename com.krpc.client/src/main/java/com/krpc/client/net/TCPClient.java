@@ -17,7 +17,7 @@ public class TCPClient {
 	
 	
 	public static byte[] send(byte[] sendData,String host,int port,int timeout) throws UnknownHostException, IOException {
-		/*
+
 		SocketChannel channel = SocketChannel.open();
 		channel.connect(new InetSocketAddress("127.0.0.1", 17666));
 		
@@ -37,7 +37,7 @@ public class TCPClient {
 		
 		System.out.println("客户端接受到:"+res.length);
 		return res;
-		*/
+		/*
 		Socket socket = new Socket(host,port);
 		socket.setSoTimeout(timeout);
 		

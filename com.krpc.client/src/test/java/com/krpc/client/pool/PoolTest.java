@@ -51,12 +51,16 @@ public class PoolTest {
 	public void channelTest(){
 		
 		try {
-			byte[] data = FileUtil.read("D:/byte.txt");
+//			byte[] data = FileUtil.read("D:/byte.txt");
+			
+			Integer i = 10;
+			byte[] data = HessianUtil.serialize(i);
+			
 			KRPCSocket socket = new KRPCSocket("127.0.0.1", 17666);
 			
 			System.out.println("发送了:"+socket.send(data));
-
 			System.out.println("发送了:"+socket.send(data));
+			
 
 			Thread.sleep(1000*60*5);
 			

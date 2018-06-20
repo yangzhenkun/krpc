@@ -1,16 +1,20 @@
 package com.krpc.server;
 
+
 import java.io.File;
 
 import org.apache.log4j.xml.DOMConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.krpc.common.protocal.ProtocalConst;
 import com.krpc.server.core.LoadConfigure;
 import com.krpc.server.entity.Global;
 import com.krpc.server.netty.ServerHandler;
 
 import io.netty.bootstrap.ServerBootstrap;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import io.netty.channel.AdaptiveRecvByteBufAllocator;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
@@ -19,6 +23,7 @@ import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
+import io.netty.handler.codec.DelimiterBasedFrameDecoder;
 
 /**
  * 启动器
@@ -56,17 +61,22 @@ public class BootStrap {
 				EventLoopGroup workerGroup = new NioEventLoopGroup();
 				ServerBootstrap bootstrap = new ServerBootstrap();
 
+				ByteBuf buf = Unpooled.copiedBuffer(ProtocalConst.P_END_TAG);
+				
+				
 				bootstrap.group(bossGroup, workerGroup).channel(NioServerSocketChannel.class)
 						.childHandler(new ChannelInitializer<SocketChannel>() {
 
 							@Override
 							protected void initChannel(SocketChannel ch) throws Exception {
-								
+								//解决粘包问题
+//								ch.pipeline().addLast("framer", new DelimiterBasedFrameDecoder(1024, true,buf));
 								ch.pipeline().addLast(new ServerHandler());
 							}
 						}).option(ChannelOption.SO_BACKLOG, 128)
 						.childOption(ChannelOption.SO_KEEPALIVE, true)
 						.childOption(ChannelOption.RCVBUF_ALLOCATOR, new AdaptiveRecvByteBufAllocator(64,Global.getInstance().getMaxBuf(),Global.getInstance().getMaxBuf()));
+				
 				
 				ChannelFuture f = bootstrap.bind(Global.getInstance().getPort()).sync(); 
 				log.info("启动成功,监听端口:"+Global.getInstance().getPort());

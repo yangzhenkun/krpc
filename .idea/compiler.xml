@@ -15,10 +15,10 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="com.a123" target="1.5" />
       <module name="com.a123.call" target="1.5" />
       <module name="com.a123.service.user" target="1.5" />
       <module name="com.a123.service.user.impl" target="1.8" />
+      <module name="com.krpc" target="1.8" />
       <module name="com.krpc.client" target="1.8" />
       <module name="com.krpc.common" target="1.8" />
       <module name="com.krpc.server" target="1.8" />

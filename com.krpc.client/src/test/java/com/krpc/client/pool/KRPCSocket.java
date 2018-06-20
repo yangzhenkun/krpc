@@ -5,6 +5,8 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * KRPC客户端用于通信的Socket
@@ -24,12 +26,18 @@ public class KRPCSocket {
 	private Object sendLockHelper = new Object();
 	private Object receiverLockHelper = new Object();
 
+	private AtomicInteger sessionId = new AtomicInteger(0);
+
+	private ConcurrentHashMap<Integer,ReceiverData> receiverDataWindow = new ConcurrentHashMap<Integer, ReceiverData>();
+
 	public KRPCSocket(String host, int port) throws IOException {
 		channel = SocketChannel.open(new InetSocketAddress(host, port));
 		socket = channel.socket();
 		socket.setSendBufferSize(1024);
 		socket.setReceiveBufferSize(1024);
-
+		
+		socket.setTcpNoDelay(true);
+		
 		sendBuffer = ByteBuffer.allocate(1024);
 		receiverBuffer = ByteBuffer.allocate(1024);
 		
@@ -65,6 +73,15 @@ public class KRPCSocket {
 			System.out.println("客户端接受:"+responseBytes.length);
 		}
 
+	}
+
+	private int createSessionID(){
+
+		if(sessionId.get()==1073741824){//1024^3
+			sessionId.set(0);
+		}
+
+		return sessionId.getAndIncrement();
 	}
 
 }

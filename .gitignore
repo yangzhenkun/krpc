@@ -9,4 +9,4 @@
 *.prefs
 pom.properties
 */target/
-/.idea
+*/.idea/

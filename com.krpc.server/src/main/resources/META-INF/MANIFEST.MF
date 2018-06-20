@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Class-Path: log4j-1.2.14.jar netty-all-4.1.24.Final.jar commons-io-1.3
+ .2.jar junit-3.8.1.jar hessian-4.0.51.jar slf4j-log4j12-1.7.25.jar xm
+ l-apis-1.0.b2.jar slf4j-api-1.7.25.jar com.krpc.common-0.0.1.jar dom4
+ j-1.6.1.jar
+Main-Class: com.krpc.server.BootStrap
+

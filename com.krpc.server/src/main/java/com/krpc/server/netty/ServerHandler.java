@@ -3,6 +3,7 @@ package com.krpc.server.netty;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.krpc.common.serializer.HessianUtil;
 import com.krpc.common.util.CompressUtil;
 import com.krpc.server.core.RequestHandler;
 
@@ -18,7 +19,7 @@ import io.netty.channel.ChannelInboundHandlerAdapter;
  */
 public class ServerHandler extends ChannelInboundHandlerAdapter {
 
-//	private Logger log = LoggerFactory.getLogger(ServerHandler.class);
+	private Logger log = LoggerFactory.getLogger(ServerHandler.class);
 
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
@@ -27,15 +28,17 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 		byte[] bytes = new byte[buf.readableBytes()];
 		buf.readBytes(bytes);
 //		log.debug("接受大小:" + bytes.length + ":::::" + bytes[8]);
-		System.out.println("接受大小:" + bytes.length + ":::::" + bytes[8]);
-
+		
+		System.out.println("接受大小:" + bytes.length);
+		
 		byte[] bytesrc = CompressUtil.uncompress(bytes);
 
 		byte[] responseBytes = CompressUtil.compress(RequestHandler.handler(bytesrc));
-//		log.debug("服务端返回大小:"+responseBytes.length);
-		System.out.println("服务端返回大小:"+responseBytes.length);
-		ByteBuf resbuf = ctx.alloc().buffer(responseBytes.length);
-		resbuf.writeBytes(responseBytes);
+//		log.debug("服务端返回大小:" + responseBytes.length);
+
+		System.out.println("服务端返回大小:" + bytes.length);
+		ByteBuf resbuf = ctx.alloc().buffer(bytes.length);
+		resbuf.writeBytes(resbuf);
 		ctx.writeAndFlush(resbuf);
 		buf.release();
 	}
