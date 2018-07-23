@@ -45,9 +45,21 @@ public class CDLTest {
     private int incr() {
 
 
-//        return atomicInteger.incrementAndGet();
-        return i++;
+        return atomicInteger.incrementAndGet();
+//        return i++;
 
+    }
+    
+    
+    @Test
+    public void testIND(){
+    	
+    	atomicInteger.compareAndSet(0, 2);
+    	
+    	System.out.println(atomicInteger.incrementAndGet());
+    	
+    	
+    	
     }
 
 

@@ -11,15 +11,15 @@ import java.nio.channels.SocketChannel;
 
 import org.apache.commons.io.IOUtils;
 
-
+@Deprecated
 public class TCPClient {
 	
 	
 	
 	public static byte[] send(byte[] sendData,String host,int port,int timeout) throws UnknownHostException, IOException {
-
+		/*
 		SocketChannel channel = SocketChannel.open();
-		channel.connect(new InetSocketAddress("127.0.0.1", 17666));
+		channel.connect(new InetSocketAddress(host, 17666));
 		
 		ByteBuffer bf = ByteBuffer.wrap(sendData);
 		channel.write(bf);
@@ -37,9 +37,10 @@ public class TCPClient {
 		
 		System.out.println("客户端接受到:"+res.length);
 		return res;
-		/*
+		*/
 		Socket socket = new Socket(host,port);
 		socket.setSoTimeout(timeout);
+		socket.setTcpNoDelay(true);
 		
 		OutputStream os = socket.getOutputStream();
 		InputStream is = socket.getInputStream();
@@ -57,14 +58,6 @@ public class TCPClient {
 			socket.close();
 		}
 		return resultArray;
-		/*
-		try {
-			FileUtil.write("D:/byte.txt", sendData);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return sendData;*/
 	}
 
 }

@@ -11,9 +11,10 @@ import java.nio.channels.SocketChannel;
 import com.krpc.common.entity.Request;
 import com.krpc.common.serializer.SerializeUtil;
 import com.krpc.common.util.CompressUtil;
+import com.krpc.common.util.FileUtil;
+
 import org.apache.commons.io.IOUtils;
 
-import com.krpc.client.net.FileUtil;
 import com.krpc.common.serializer.HessianUtil;
 import org.junit.Test;
 

@@ -16,6 +16,14 @@
 
 	<dependencies>
 
+		<!-- https://mvnrepository.com/artifact/com.alibaba/fastjson -->
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.47</version>
+		</dependency>
+
+
 		<dependency>
 			<groupId>com.a123</groupId>
 			<artifactId>com.a123.service.user</artifactId>

@@ -1,4 +1,4 @@
-package com.krpc.client.net;
+package com.krpc.client.core;
 
 import com.krpc.client.KRPC;
 import com.krpc.client.entity.Address;

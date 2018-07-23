@@ -11,4 +11,6 @@ public class ProtocalConst {
      * 结束标记
      */
     public static final byte[] P_END_TAG = new byte[]{9, 10, 13, 17, 18};
+    
+    public static final Integer SESSION_ID_LENGTH = 5;
 }

@@ -78,7 +78,7 @@ public class KRPCSocket {
 	private int createSessionID(){
 
 		if(sessionId.get()==1073741824){//1024^3
-			sessionId.set(0);
+			sessionId.compareAndSet(1073741824, 0);
 		}
 
 		return sessionId.getAndIncrement();

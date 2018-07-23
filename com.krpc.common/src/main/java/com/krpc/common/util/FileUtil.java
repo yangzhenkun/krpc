@@ -1,4 +1,4 @@
-package com.krpc.client.net;
+package com.krpc.common.util;
 
 import java.io.File;
 import java.io.FileInputStream;

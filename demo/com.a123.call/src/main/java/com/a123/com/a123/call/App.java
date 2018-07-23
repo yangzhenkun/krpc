@@ -6,10 +6,10 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
-import java.util.concurrent.SynchronousQueue;
 
 import com.a123.service.user.contract.UserService;
 import com.a123.service.user.entity.User;
+import com.alibaba.fastjson.JSON;
 import com.krpc.client.KRPC;
 import com.krpc.client.proxy.ProxyFactory;
 
@@ -32,7 +32,7 @@ public class App {
 			final UserService service = ProxyFactory.create(UserService.class, "user", "userService");
 
 			final List<User> users = new ArrayList<User>();
-			for (int i = 0; i < 30; i++) {
+			for (int i = 0; i < 20; i++) {
 				User user = new User();
 				user.setId(i);
 				user.setName(i + "");
@@ -43,7 +43,7 @@ public class App {
 			}
 
 			Executor pool = Executors.newFixedThreadPool(4);
-			final CountDownLatch count = new CountDownLatch(20);
+			final CountDownLatch count = new CountDownLatch(200);
 			start = System.currentTimeMillis();
 			for (int i = 0; i < 20; i++) {
 
@@ -52,8 +52,7 @@ public class App {
 					public void run() {
 						try {
 							List<User> s = service.users(users);
-							System.out.println(s.size());
-							System.out.println(count.getCount());
+							System.out.println(JSON.toJSONString(s));
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -63,8 +62,7 @@ public class App {
 
 			}
 
-			while (count.getCount() != 0) {
-			}
+			count.await();
 			
 			System.out.println(System.currentTimeMillis() - start);
 			System.out.println("执行完毕");
