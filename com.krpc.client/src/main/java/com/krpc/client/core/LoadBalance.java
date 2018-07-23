@@ -18,7 +18,6 @@ public class LoadBalance {
 	 * @return
 	 */
 	public static Address loadbalance(String serviceName){
-		
 		ServiceParams serviceParams = KRPC.getService(serviceName);
 		int total = serviceParams.getAddresses().size();
 		int index = (int) (System.currentTimeMillis()%total);
