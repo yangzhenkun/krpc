@@ -1,11 +1,16 @@
 package com.a123.com.a123.call;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+
+import org.apache.log4j.xml.DOMConfigurator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import com.a123.service.user.contract.UserService;
 import com.a123.service.user.entity.User;
@@ -25,6 +30,9 @@ public class App {
 	public static void main(String[] args) {
 		Long start = 0L;
 		try {
+			DOMConfigurator.configure("C:\\Users\\yangzhenkun01\\Desktop\\krpc\\client\\log4j.xml");
+			final Logger log = LoggerFactory.getLogger(App.class);
+
 			// 初始KRPC服务
 			KRPC.init("C:/Users/yangzhenkun01/Desktop/krpc/client/client.xml");
 
@@ -42,19 +50,21 @@ public class App {
 				users.add(user);
 			}
 
-			Executor pool = Executors.newFixedThreadPool(4);
-			final CountDownLatch count = new CountDownLatch(200);
+			Executor pool = Executors.newFixedThreadPool(1);
+			final CountDownLatch count = new CountDownLatch(400000);
 			start = System.currentTimeMillis();
-			for (int i = 0; i < 20; i++) {
+			for (int i = 0; i < 400000; i++) {
 
 				pool.execute(new Runnable() {
 
 					public void run() {
 						try {
+							long start = System.currentTimeMillis();
 							List<User> s = service.users(users);
-							System.out.println(JSON.toJSONString(s));
+							log.info("调用成功:{}",JSON.toJSONString(s));
+							Thread.sleep(100);
 						} catch (Exception e) {
-							e.printStackTrace();
+							log.error("调用错误:",e);
 						}
 						count.countDown();
 					}

@@ -49,7 +49,7 @@ public class KRPCSocket {
 		socket.setSendBufferSize(1024);
 		socket.setReceiveBufferSize(1024);
 
-		socket.setTcpNoDelay(true);
+		// socket.setTcpNoDelay(true);
 
 		sendBuffer = ByteBuffer.allocate(1024);
 		receiverBuffer = ByteBuffer.allocate(1024);
@@ -69,16 +69,20 @@ public class KRPCSocket {
 		byte[] sendData = ContextUtil.mergeSessionID(sessionID, data);
 
 		synchronized (sendLockHelper) {
-
-			sendBuffer.clear();
-			sendBuffer.put(sendData);
-			sendBuffer.flip();
-			while (sendBuffer.hasRemaining()) {
-				channel.write(sendBuffer);
+			try {
+				ReceiverData receiverData = new ReceiverData();
+				receiverDataWindow.put(sessionID, receiverData);
+				sendBuffer.clear();
+				sendBuffer.put(sendData);
+				sendBuffer.flip();
+				while (sendBuffer.hasRemaining()) {
+					channel.write(sendBuffer);
+				}
+			} catch (Exception e) {
+				log.error("send error!",e);
+				receiverDataWindow.remove(sessionID);
 			}
 
-			ReceiverData receiverData = new ReceiverData();
-			receiverDataWindow.put(sessionID, receiverData);
 			return sessionID;
 		}
 
@@ -99,6 +103,7 @@ public class KRPCSocket {
 		if (Objects.isNull(respData)) {
 			throw new Exception("获取数据超时...");
 		}
+		receiverDataWindow.remove(sessionId);
 
 		return respData;
 	}
