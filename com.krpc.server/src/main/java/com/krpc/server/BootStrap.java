@@ -19,12 +19,16 @@ import io.netty.channel.AdaptiveRecvByteBufAllocator;
 import io.netty.channel.ChannelFuture;
 import io.netty.channel.ChannelInitializer;
 import io.netty.channel.ChannelOption;
+import io.netty.channel.ChannelPipeline;
 import io.netty.channel.EventLoopGroup;
 import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
 import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.bytes.ByteArrayDecoder;
+import io.netty.handler.codec.bytes.ByteArrayEncoder;
 
 /**
  * 启动器
@@ -70,9 +74,12 @@ public class BootStrap {
 
 							@Override
 							protected void initChannel(SocketChannel ch) throws Exception {
-								//解决粘包问题
-//								ch.pipeline().addLast(new LengthFieldPrepender(3));
-								ch.pipeline().addLast(new ServerHandler());
+								ChannelPipeline pipeline = ch.pipeline();
+								pipeline.addLast("frameDecoder", new LengthFieldBasedFrameDecoder(Integer.MAX_VALUE, 0, 4, 0, 4));
+								pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
+								pipeline.addLast("decoder", new ByteArrayDecoder());
+								pipeline.addLast("encoder", new ByteArrayEncoder());
+								pipeline.addLast(new ServerHandler());
 							}
 						}).option(ChannelOption.SO_BACKLOG, 128)
 						.childOption(ChannelOption.SO_KEEPALIVE, true)

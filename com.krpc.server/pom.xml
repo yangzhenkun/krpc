@@ -17,23 +17,12 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>com.a123</groupId>
-			<artifactId>com.a123.service.user</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-
-
-		<dependency>
 			<groupId>com.krpc</groupId>
 			<artifactId>com.krpc.common</artifactId>
 			<version>0.0.1</version>
 		</dependency>
 
-		<dependency>
-			<groupId>io.netty</groupId>
-			<artifactId>netty-all</artifactId>
-			<version>4.1.24.Final</version>
-		</dependency>
+		
 
 		<dependency>
 			<groupId>log4j</groupId>

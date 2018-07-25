@@ -1,25 +1,6 @@
 package com.krpc.server.netty;
 
-import io.netty.bootstrap.Bootstrap;
-import io.netty.channel.Channel;
-import io.netty.channel.ChannelInitializer;
-import io.netty.channel.ChannelOption;
-import io.netty.channel.ChannelPipeline;
-import io.netty.channel.EventLoopGroup;
-import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioSocketChannel;
-import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
-import io.netty.handler.codec.LengthFieldPrepender;
-import io.netty.handler.codec.bytes.ByteArrayDecoder;
-import io.netty.handler.codec.bytes.ByteArrayEncoder;
-import io.netty.handler.codec.string.StringDecoder;
-import io.netty.handler.codec.string.StringEncoder;
-import io.netty.util.CharsetUtil;
-
-import java.io.File;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
@@ -29,9 +10,17 @@ import org.apache.log4j.xml.DOMConfigurator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.a123.service.user.entity.User;
-import com.krpc.common.serializer.HessianUtil;
-import com.krpc.server.BootStrap;
+import io.netty.bootstrap.Bootstrap;
+import io.netty.channel.Channel;
+import io.netty.channel.ChannelInitializer;
+import io.netty.channel.ChannelPipeline;
+import io.netty.channel.EventLoopGroup;
+import io.netty.channel.nio.NioEventLoopGroup;
+import io.netty.channel.socket.nio.NioSocketChannel;
+import io.netty.handler.codec.LengthFieldBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
+import io.netty.handler.codec.bytes.ByteArrayDecoder;
+import io.netty.handler.codec.bytes.ByteArrayEncoder;
 
 
 public class TCPClient {
@@ -113,7 +102,6 @@ public class TCPClient {
 		public void run() {
 			try {
 				
-				List<User> data = new ArrayList<>();
 				
 //				for(int i=0;i<10;i++){
 //					User user = new User();
@@ -125,28 +113,11 @@ public class TCPClient {
 //					data.add(user);
 //				}
 				int i= 1;
-				User user = new User();
-				user.setId(i);
-				user.setBirthDay(new Date());
-				user.setName("杨震坤"+i);
-				user.setPhone(1881057L);
-				
-				data.add(user);
 				
 				
 				
-				Long phone = new Long(18810572463L);
 				
-				byte[] res = HessianUtil.serialize(user);
-
-//				String sendMsg = new String(res,CharsetUtil.UTF_8);
-				
-				String sendMsg = String.valueOf(i);
-				
-				
-				System.out.println("原数据长度:"+res.length);
-				
-				TCPClient.sendMsg(res);
+				TCPClient.sendMsg(null);
 				
 				
 			} catch (Exception e) {
