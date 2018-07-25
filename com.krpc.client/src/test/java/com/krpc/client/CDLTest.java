@@ -2,6 +2,9 @@ package com.krpc.client;
 
 import org.junit.Test;
 
+import com.krpc.common.protocal.ProtocalConst;
+
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.*;
@@ -57,6 +60,25 @@ public class CDLTest {
     	atomicInteger.compareAndSet(0, 2);
     	
     	System.out.println(atomicInteger.incrementAndGet());
+    	
+    }
+    
+    
+    @Test
+    public void testByte(){
+    	
+    	try {
+    		String start = new String(ProtocalConst.P_START_TAG);
+			System.out.println(start);
+			String end = new String(ProtocalConst.P_END_TAG);
+			System.out.println(end);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	
+    	
+    	
     	
     	
     	

@@ -24,6 +24,7 @@ import io.netty.channel.nio.NioEventLoopGroup;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.handler.codec.DelimiterBasedFrameDecoder;
+import io.netty.handler.codec.LengthFieldPrepender;
 
 /**
  * 启动器
@@ -70,7 +71,7 @@ public class BootStrap {
 							@Override
 							protected void initChannel(SocketChannel ch) throws Exception {
 								//解决粘包问题
-//								ch.pipeline().addLast("framer", new DelimiterBasedFrameDecoder(1024, true,buf));
+//								ch.pipeline().addLast(new LengthFieldPrepender(3));
 								ch.pipeline().addLast(new ServerHandler());
 							}
 						}).option(ChannelOption.SO_BACKLOG, 128)
