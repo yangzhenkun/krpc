@@ -25,10 +25,8 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 	@Override
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 
-		ByteBuf buf = (ByteBuf) msg;
-		byte[] bytes = new byte[buf.readableBytes()];
-		buf.readBytes(bytes);
-		log.debug("接受大小:" + bytes.length + ":::::" + bytes[8]);
+		byte[] bytes = (byte[])msg;
+		log.debug("接受大小:" + bytes.length);
 		
 		Integer sessionID = ContextUtil.getSessionID(bytes);
 		log.debug("接受sessionID:{}",sessionID);
@@ -38,10 +36,7 @@ public class ServerHandler extends ChannelInboundHandlerAdapter {
 		
 		log.debug("服务端返回大小:" + responseBytes.length);
 
-		ByteBuf resbuf = ctx.alloc().buffer(responseBytes.length);
-		resbuf.writeBytes(responseBytes);
-		ctx.writeAndFlush(resbuf);
-		buf.release();
+		ctx.writeAndFlush(responseBytes);
 	}
 
 	@Override

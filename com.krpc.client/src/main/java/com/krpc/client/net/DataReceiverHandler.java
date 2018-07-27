@@ -1,5 +1,13 @@
 package com.krpc.client.net;
 
+/**
+ * 原生NIO接受控制类
+ * 已交由netty
+ * 
+ * @author yangzhenkun
+ *
+ */
+@Deprecated
 public class DataReceiverHandler {
 	
 	private KRPCSocket socket;

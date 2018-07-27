@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.krpc.client.core.RequestHandler;
+import com.krpc.common.util.ContextUtil;
 
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.Channel;
@@ -29,23 +30,22 @@ public class TCPClient {
 
 	private Map<Integer, ReceiverData> receiverDataWindow = new ConcurrentHashMap<Integer, ReceiverData>();
 	
-	private static Bootstrap bootstrap;
+	private  Bootstrap bootstrap;
 
-	static {
-		bootstrap = getBootstrap();
-	}
-	
 	private Channel channel;
+	
+	private Integer timeout;
 
 	/**
 	 * 初始化Bootstrap
 	 * 
 	 * @return
 	 */
-	public static Bootstrap getBootstrap() {
+	public  Bootstrap getBootstrap() {
 		EventLoopGroup group = new NioEventLoopGroup();
 		Bootstrap b = new Bootstrap();
 		b.group(group).channel(NioSocketChannel.class);
+		TcpClientHandler tcpClientHandler = new TcpClientHandler(TCPClient.this);
 		b.handler(new ChannelInitializer<Channel>() {
 			@Override
 			protected void initChannel(Channel ch) throws Exception {
@@ -54,19 +54,22 @@ public class TCPClient {
 				pipeline.addLast("frameEncoder", new LengthFieldPrepender(4));
 				pipeline.addLast("decoder", new ByteArrayDecoder());
 				pipeline.addLast("encoder", new ByteArrayEncoder());
-				pipeline.addLast("handler", new TcpClientHandler());
+				pipeline.addLast("handler", tcpClientHandler);
 			}
 		});
 		return b;
 	}
 	
 	
-	public TCPClient(String host,Integer port){
+	public TCPClient(String host,Integer port,Integer timeout){
 		this.channel = getChannel(host, port);
+		this.timeout=timeout;
+		
 	}
 
 	private Channel getChannel(String host, int port) {
 		try {
+			bootstrap = getBootstrap();
 			channel = bootstrap.connect(host, port).sync().channel();
 		} catch (Exception e) {
 			log.error("连接Server(IP{},PORT{})失败", host, port);
@@ -75,11 +78,17 @@ public class TCPClient {
 		return channel;
 	}
 
-	public void sendMsg(byte[] msg) throws Exception {
+	public Integer sendMsg(byte[] msg) throws Exception {
 		if (channel != null) {
-			channel.writeAndFlush(msg).sync();
+			Integer sessionID = createSessionID();
+			byte[] sendData = ContextUtil.mergeSessionID(sessionID, msg);
+			ReceiverData receiverData = new ReceiverData();
+			receiverDataWindow.put(sessionID, receiverData);
+			channel.writeAndFlush(sendData).sync();
+			return sessionID;
 		} else {
 			log.error("消息发送失败,连接尚未建立!");
+			return null;
 		}
 	}
 
@@ -88,21 +97,36 @@ public class TCPClient {
 	 * 
 	 * @return
 	 */
-	public byte[] getData(int sessionId, long timeout) throws Exception {
+	public byte[] getData(int sessionId) throws Exception {
 
 		ReceiverData receiverData = receiverDataWindow.get(sessionId);
 		if (Objects.isNull(receiverData)) {
-			throw new Exception("未从等待窗口中取到数据");
+			throw new Exception("get data waitwindow no revice data!id:"+sessionId)  ;
 		}
-		byte[] respData = receiverData.getData(timeout);
+		byte[] respData = receiverData.getData(this.timeout);
 		if (Objects.isNull(respData)) {
-			throw new Exception("获取数据超时...");
+			throw new Exception("");
 		}
 		receiverDataWindow.remove(sessionId);
 
 		return respData;
 	}
 	
+	protected void receiver(byte[] data) {
+		
+		try {
+			int currentSessionID = ContextUtil.getSessionID(data);
+			ReceiverData receiverData = receiverDataWindow.get(currentSessionID);
+			if(Objects.isNull(receiverData)) {
+				log.error("revice data waitwindow no reciever data!id:{}",currentSessionID);
+			}
+			receiverData.setData(ContextUtil.getBody(data));
+			
+		} catch (Exception e) {
+			log.error("receiver data error!",e);
+		}
+		
+	}
 	
 	private Integer createSessionID() {
 

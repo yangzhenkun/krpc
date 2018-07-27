@@ -16,12 +16,14 @@ public class TcpClientHandler extends ChannelInboundHandlerAdapter {
 	
 	private Logger log = LoggerFactory.getLogger(this.getClass());
 	
+	private TCPClient tcpClient;
 	
 	
-	public TcpClientHandler() {
+	public TcpClientHandler(TCPClient tcpClient ) {
+		this.tcpClient=tcpClient;
 	}
+	
 
-	// private byte[] req;
 	/**
 	 * 链路链接成功
 	 */
@@ -31,7 +33,7 @@ public class TcpClientHandler extends ChannelInboundHandlerAdapter {
 
 	public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 		
-		byte[] data = (byte[]) msg;
+		tcpClient.receiver((byte[]) msg);
 
 	}
 

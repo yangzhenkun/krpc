@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import com.krpc.client.KRPC;
 import com.krpc.client.entity.Address;
 import com.krpc.client.net.KRPCSocket;
+import com.krpc.client.net.TCPClient;
 import com.krpc.common.entity.Request;
 import com.krpc.common.serializer.HessianUtil;
 import com.krpc.common.util.CompressUtil;
@@ -25,7 +26,7 @@ public class RequestHandler {
 
 	private static Logger log = LoggerFactory.getLogger(RequestHandler.class);
 
-	private static Map<Address, KRPCSocket> socketCache = new ConcurrentHashMap();
+	private static Map<Address, TCPClient> tcpClientCache = new ConcurrentHashMap();
 
 	private static Object lockHelper = new Object();
 
@@ -34,32 +35,34 @@ public class RequestHandler {
 		Address addr = LoadBalance.loadbalance(serviceName);
 		byte[] requestBytes = CompressUtil.compress(HessianUtil.serialize(request));
 
-		KRPCSocket socket = getSocket(addr);
+		TCPClient tcpClient = getTCPClient(addr,KRPC.getService(serviceName).getTimeout());
 
 		log.debug("客户端发送数据:{}" , requestBytes.length);
-		int sessionID = socket.send(requestBytes);
-
-		byte[] responseBytessrc = socket.getData(sessionID, KRPC.getService(serviceName).getTimeout());
+		Integer sessionID = tcpClient.sendMsg(requestBytes);
+		if(Objects.isNull(sessionID)) {
+			throw new Exception("send data error!");
+		}
+		
+		byte[] responseBytessrc = tcpClient.getData(sessionID);
 		return HessianUtil.deserialize( CompressUtil.uncompress(responseBytessrc), null);
-
 	}
 
-	private static KRPCSocket getSocket(Address address) throws IOException {
-		KRPCSocket socket = socketCache.get(address);
-		if (Objects.isNull(socket)) {
+	private static TCPClient getTCPClient(Address address,Integer timeout) throws IOException {
+		TCPClient tcpClient= tcpClientCache.get(address);
+		if (Objects.isNull(tcpClient)) {
 
 			synchronized (lockHelper) {
-				socket = socketCache.get(address);
-				if (Objects.isNull(socket)) {
-					socket = new KRPCSocket(address.getHost(), address.getPort());
-					socketCache.put(address, socket);
+				tcpClient = tcpClientCache.get(address);
+				if (Objects.isNull(tcpClient)) {
+					tcpClient = new TCPClient(address.getHost(), address.getPort(),timeout);
+					tcpClientCache.put(address, tcpClient);
 				}
 
 			}
 
 		}
 
-		return socket;
+		return tcpClient;
 	}
 
 }

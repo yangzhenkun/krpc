@@ -20,10 +20,13 @@ import java.util.Objects;
 
 /**
  * KRPC客户端用于通信的Socket
+ * NIO方式
+ * 已过时改由netty实现
  * 
  * @author yangzhenkun
  *
  */
+@Deprecated
 public class KRPCSocket {
 
 	private Logger log = LoggerFactory.getLogger(KRPCSocket.class);

@@ -29,11 +29,11 @@ public class App {
 	public static void main(String[] args) {
 		Long start = 0L;
 		try {
-			DOMConfigurator.configure("C:\\Users\\yangzhenkun01\\Desktop\\krpc\\client\\log4j.xml");
+//			DOMConfigurator.configure("C:\\Users\\yangzhenkun01\\Desktop\\krpc\\client\\log4j.xml");
 			final Logger log = LoggerFactory.getLogger(App.class);
 
 			// 初始KRPC服务
-			KRPC.init("C:/Users/yangzhenkun01/Desktop/krpc/client/client.xml");
+			KRPC.init("src/resources/client.xml");
 
 			// 通过代理获取接口类，第二个参数为client.xml文件中服务的名字,第三个参数为该接口具体实现的名字，需要跟该服务的配置文件的name值一样
 			UserService service = ProxyFactory.create(UserService.class, "user", "userService");
@@ -49,7 +49,7 @@ public class App {
 				users.add(user);
 			}
 */
-			Executor pool = Executors.newFixedThreadPool(1);
+			Executor pool = Executors.newFixedThreadPool(40);
 			final CountDownLatch count = new CountDownLatch(400000);
 			start = System.currentTimeMillis();
 			for (int i = 0; i < 400000; i++) {
@@ -93,15 +93,18 @@ public class App {
 			List<User> s = userService.users(users);
 			try {
 				if(s.get(0).getId()!=id){
-					log.error("不正确的数据 ,sessionID:{},内容:{}",id,JSON.toJSONString(s));
+					System.err.println("不正确的数据 ,sessionID:"+id);
+				}else {
+					System.out.println("数据正确:"+id);
 				}
-			
+//				Thread.sleep(1000);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				log.error("调用错误",e);
 			}
-
+			
+			
 		}
 
 	}
