@@ -10,7 +10,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.regex.Pattern;
 
-import com.krpc.client.net.RequestHandler;
+import com.krpc.client.core.RequestHandler;
 import com.krpc.common.entity.Request;
 
 public class ProxyHandler implements InvocationHandler {

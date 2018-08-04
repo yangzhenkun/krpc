@@ -61,7 +61,6 @@ public class SerializeUtil {
 			ois = new ObjectInputStreamWithLoader(bais,classLoader);
 			return ois.readObject();
 		} catch (Exception e) {
-			e.printStackTrace();
 			log.error("反序列化错误", e);
 		}
 		return null;

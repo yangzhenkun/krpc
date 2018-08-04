@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.krpc.client" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.krpc.common" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/com.krpc.server" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo/com.a123.call" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo/com.a123.service.user" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/demo/com.a123.service.user.impl" charset="UTF-8" />
+  </component>
+</project>

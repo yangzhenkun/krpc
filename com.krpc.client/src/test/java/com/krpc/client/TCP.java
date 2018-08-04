@@ -14,25 +14,6 @@ import com.krpc.client.net.TCPClient;
 
 public class TCP {
 
-	@Test
-	public void test() {
-
-		String req = "hello";
-
-		try {
-			byte[] res = TCPClient.send(req.getBytes(), "127.0.0.1", 17999,10);
-
-			String response = new String(res);
-
-			System.out.println("客户端接收到:" + response);
-
-		} catch (UnknownHostException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-
-	}
 
 	@Test
 	public void testSend() {
