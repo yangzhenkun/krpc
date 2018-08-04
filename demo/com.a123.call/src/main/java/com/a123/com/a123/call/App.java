@@ -29,7 +29,7 @@ public class App {
 	public static void main(String[] args) {
 		Long start = 0L;
 		try {
-//			DOMConfigurator.configure("C:\\Users\\yangzhenkun01\\Desktop\\krpc\\client\\log4j.xml");
+			// DOMConfigurator.configure("C:\\Users\\yangzhenkun01\\Desktop\\krpc\\client\\log4j.xml");
 			final Logger log = LoggerFactory.getLogger(App.class);
 
 			// 初始KRPC服务
@@ -38,24 +38,21 @@ public class App {
 			// 通过代理获取接口类，第二个参数为client.xml文件中服务的名字,第三个参数为该接口具体实现的名字，需要跟该服务的配置文件的name值一样
 			UserService service = ProxyFactory.create(UserService.class, "user", "userService");
 
-/*			final List<User> users = new ArrayList<User>();
-			for (int i = 0; i < 20; i++) {
-				User user = new User();
-				user.setId(i);
-				user.setName(i + "");
-				user.setPhone(111);
-				user.setBirthDay(new Date());
-
-				users.add(user);
-			}
-*/
-			Executor pool = Executors.newFixedThreadPool(40);
-			final CountDownLatch count = new CountDownLatch(400000);
+			/*
+			 * final List<User> users = new ArrayList<User>(); for (int i = 0; i
+			 * < 20; i++) { User user = new User(); user.setId(i);
+			 * user.setName(i + ""); user.setPhone(111); user.setBirthDay(new
+			 * Date());
+			 * 
+			 * users.add(user); }
+			 */
+			Executor pool = Executors.newFixedThreadPool(200);
+			final CountDownLatch count = new CountDownLatch(100000);
 			start = System.currentTimeMillis();
-			for (int i = 0; i < 400000; i++) {
+			for (int i = 0; i < 100000; i++) {
 
-				pool.execute( new Task(service,i,log) );
-
+				pool.execute(new Task(service, i, log,count));
+				
 			}
 
 			count.await();
@@ -74,37 +71,44 @@ public class App {
 		UserService userService;
 		int id;
 		Logger log;
+		CountDownLatch countDownLatch ;
 
-		public Task(UserService us, int id,Logger log) {
+		public Task(UserService us, int id, Logger log,CountDownLatch countDownLatch) {
 			this.userService = us;
-			this.id=id;
-			this.log=log;
+			this.id = id;
+			this.log = log;
+			this.countDownLatch = countDownLatch;
 		}
 
 		public void run() {
-			User user = new User();
-			user.setId(id);
-			user.setName("name:" + id);
-			user.setBirthDay(new Date());
-			user.setPhone(188L);
 			List<User> users = new ArrayList<User>();
-			users.add(user);
+
+			for (int i = 0; i < 20; i++) {
+
+				User user = new User();
+				user.setId(id);
+				user.setName("name:" + id);
+				user.setBirthDay(new Date());
+				user.setPhone(188L);
+
+				users.add(user);
+			}
 			long start = System.currentTimeMillis();
 			List<User> s = userService.users(users);
 			try {
-				if(s.get(0).getId()!=id){
-					System.err.println("不正确的数据 ,sessionID:"+id);
-				}else {
-					System.out.println("数据正确:"+id);
+				if (s.get(0).getId() != id) {
+					System.err.println("不正确的数据 ,sessionID:" + id);
+				} else {
+					System.out.println("数据正确:" + id);
 				}
-//				Thread.sleep(1000);
+				countDownLatch.countDown();
+				// Thread.sleep(1000);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-				log.error("调用错误",e);
+				log.error("调用错误", e);
 			}
-			
-			
+
 		}
 
 	}

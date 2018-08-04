@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import com.krpc.client.KRPC;
 import com.krpc.client.entity.Address;
-import com.krpc.client.net.KRPCSocket;
 import com.krpc.client.net.TCPClient;
 import com.krpc.common.entity.Request;
 import com.krpc.common.serializer.HessianUtil;
