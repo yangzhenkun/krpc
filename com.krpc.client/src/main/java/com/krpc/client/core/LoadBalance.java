@@ -1,5 +1,7 @@
 package com.krpc.client.core;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import com.krpc.client.KRPC;
 import com.krpc.client.entity.Address;
 import com.krpc.client.entity.ServiceParams;
@@ -17,13 +19,25 @@ public class LoadBalance {
 	 * @param serviceName
 	 * @return
 	 */
-	public static Address loadbalance(String serviceName){
+	public static Address loadbalanceRandom(String serviceName){
 		ServiceParams serviceParams = KRPC.getService(serviceName);
 		int total = serviceParams.getAddresses().size();
 		int index = (int) (System.currentTimeMillis()%total);
 		
 		return serviceParams.getAddresses().get(index);
 	}
+	
+	private static AtomicInteger count = new AtomicInteger(0);
+	
+	
+	public static Address loadbalanceUniformity(String serviceName) {
+		ServiceParams serviceParams = KRPC.getService(serviceName);
+		int total = serviceParams.getAddresses().size();
+		return serviceParams.getAddresses().get(count.getAndIncrement()%total);
+
+		
+	}
+	
 	
 	
 }

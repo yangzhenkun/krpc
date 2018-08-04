@@ -31,7 +31,7 @@ public class RequestHandler {
 
 	public static Object request(String serviceName, Request request, Class returnType) throws Exception {
 
-		Address addr = LoadBalance.loadbalance(serviceName);
+		Address addr = LoadBalance.loadbalanceRandom(serviceName);
 		byte[] requestBytes = CompressUtil.compress(HessianUtil.serialize(request));
 
 		TCPClient tcpClient = getTCPClient(addr,KRPC.getService(serviceName).getTimeout());
