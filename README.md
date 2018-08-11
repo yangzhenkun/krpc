@@ -1,5 +1,8 @@
 ![](https://img.shields.io/badge/Java-1.8-green.svg)
 [![Build Status](https://travis-ci.org/yangzhenkun/krpc.svg?branch=master)](https://travis-ci.org/yangzhenkun/krpc)
+[![docker pull](https://img.shields.io/badge/docker-pull-green.svg)](https://cloud.docker.com/swarm/yangzhenkun/repository/docker/yangzhenkun/krpc/general)
+
+
 
 ![Logo](https://raw.githubusercontent.com/yangzhenkun/krpc/master/logo.png)
 
@@ -63,6 +66,12 @@ java -jar com.krpc.server-0.0.1.jar 服务名
 ```
 命令，查看日志，如果看到  启动成功，监听端口***  的日志，恭喜你，服务端启动成功。
 
+#### docker 启动服务
+
+https://github.com/yangzhenkun/krpc/tree/master/docker
+
+krpc提供了服务端镜像，所以每个服务都可以在krpc提供的dockerfile模版中进行修改构建自己的服务镜像
+
 #### 2.客户端
 需要引入KRPC客户端，由于项目还没有发布到maven中央仓库，用户可以将client包发布到自己本地，或者直接将该com.krpc.client-0.0.1.jar包加入项目。
 
@@ -93,21 +102,12 @@ sercie的name的值必须
 跟create中第二个参数一直。第三个参数为服务端实现的名字，需要跟服务端的配置文件一直。
 
 
-#### 3.未完成的事情
-<del>3.1 (已解决) <del>接口包参数中目前不支持基本类型，必须使用其包装类
 
-3.2 大访问量下压测  server端会发生dang住，或许是缓冲区相关问题
-
-3.3 客户端大调用量下  需要提高client请求的效率,或许可以做连接池
-
-3.4 增加安全SOA  扩展方案
-
-
-#### 4.要注意的事情
+#### 3.要注意的事情
 
 krpc.rar中的krpc相关包均为上面源码中生成
 
-配置文件模板：https://github.com/yangzhenkun/krpc/tree/master/config_file_template
+配置文件模板：https://github.com/yangzhenkun/krpc/tree/master/demo/config_file_template
 
 
 **这个RPC框架是我自己造轮子学习的，并没有真实在生产环境中使用，所以看到这个项目，希望大家可以交流学习技术，提交pr,issue，完善其性能及功能,争取让它可以用于生产环境**

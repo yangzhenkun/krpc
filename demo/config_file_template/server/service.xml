@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+
+
+<!-- 连接相关参数 -->
+<property>
+	<!-- 该服务监听的本机IP和tcp端口 -->
+	<connection ip="127.0.0.1" port="17666" timeout="3000"/>
+	<!-- 最大接受请求（字节,默认值是1024） -->
+	<netty maxBuf="65535"/>
+</property>
+
+
+<!-- 所有能提供服务的接口 -->
+<services>
+	<!-- name的值为接口名字，客户端通过代理工程生成接口时需要, impl值为具体实现类全路径  -->
+	<service name="userService" impl="com.a123.service.user.impl.UserServiceImpl"/>
+</services>
+
+
+
+</configuration>
