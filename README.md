@@ -1,6 +1,6 @@
 ![](https://img.shields.io/badge/Java-1.8-green.svg)
 [![Build Status](https://travis-ci.org/yangzhenkun/krpc.svg?branch=master)](https://travis-ci.org/yangzhenkun/krpc)
-[![docker pull](https://img.shields.io/badge/docker-pull-green.svg)](https://cloud.docker.com/swarm/yangzhenkun/repository/docker/yangzhenkun/krpc/general)
+[![docker pull](https://img.shields.io/badge/docker-pull-green.svg)](https://hub.docker.com/r/yangzhenkun/krpc/)
 
 
 
