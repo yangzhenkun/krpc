@@ -1,5 +1,5 @@
 ### 0.文件解释
-krpc目录下是krpc容器镜像构建所需的文件
+krpc目录下是krpc容器镜像构建所需的文件(krpc.tar.gz是krpc服务端以来端的jar)
 
 user-server 是以user服务为例，发布docker images
 
