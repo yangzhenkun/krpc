@@ -1,13 +1,13 @@
 ![](https://img.shields.io/badge/Java-1.8-green.svg)
 [![docker pull](https://img.shields.io/badge/docker-pull-green.svg)](https://hub.docker.com/r/yangzhenkun/krpc/)
-
+[![Build Status](https://www.travis-ci.org/yangzhenkun/krpc.svg?branch=master)](https://www.travis-ci.org/yangzhenkun/krpc)
 
 
 ![Logo](https://raw.githubusercontent.com/yangzhenkun/krpc/master/logo.png)
 
 ### 如何使用
 
-编译好的环境 https://github.com/yangzhenkun/krpc/blob/master/krpc.rar
+编译好的环境 [release](https://github.com/yangzhenkun/krpc/releases/tag/1.0)
 
 #### 1.服务端
 解压后server文件夹中就是服务端环境，如demo所示，server/service中有一个user文件，就是我们部署的user服务，下面有两个必须的文件夹conf（配置文件）
