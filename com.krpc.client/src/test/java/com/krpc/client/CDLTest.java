@@ -2,17 +2,11 @@ package com.krpc.client;
 
 import org.junit.Test;
 
-import com.krpc.client.net.ReceiverData;
-import com.krpc.client.net.TCPClient;
-import com.krpc.common.protocal.ProtocalConst;
-
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.*;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
-
-import javax.sound.sampled.ReverbType;
 
 /**
  * @author: yangzhenkun01
@@ -56,38 +50,16 @@ public class CDLTest {
 //        return i++;
 
     }
-    
-    
+
+
     @Test
-    public void testIND(){
-    	
-    	atomicInteger.compareAndSet(0, 2);
-    	
-    	System.out.println(atomicInteger.incrementAndGet());
-    	
+    public void testIND() {
+
+        atomicInteger.compareAndSet(0, 2);
+
+        System.out.println(atomicInteger.incrementAndGet());
+
     }
-    
-    
-    @Test
-    public void testByte(){
-    	
-    	try {
-    		String start = new String(ProtocalConst.P_START_TAG);
-			System.out.println(start);
-			String end = new String(ProtocalConst.P_END_TAG);
-			System.out.println(end);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-    	
-    	
-    }
-    
-    
-    
-    
-    
 
 
 }

@@ -15,20 +15,11 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
 
-	<dependencies>
-		<dependency>
-			<groupId>com.krpc</groupId>
-			<artifactId>com.krpc.client</artifactId>
-			<version>0.0.1</version>
-		</dependency>
-
-		<dependency>
-			<groupId>com.krpc</groupId>
-			<artifactId>com.krpc.server</artifactId>
-			<version>0.0.1</version>
-		</dependency>
-
-	</dependencies>
+	 <modules>
+        <module>com.krpc.client</module>
+        <module>com.krpc.common</module>
+        <module>com.krpc.server</module>
+    </modules>
 	
 	<build>
 		<plugins>
