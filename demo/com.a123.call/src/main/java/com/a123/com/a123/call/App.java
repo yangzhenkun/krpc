@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
+import java.util.concurrent.TimeUnit;
 
 import org.apache.log4j.xml.DOMConfigurator;
 import org.slf4j.Logger;
@@ -33,7 +34,7 @@ public class App {
 			final Logger log = LoggerFactory.getLogger(App.class);
 
 			// 初始KRPC服务
-			KRPC.init("src/resources/client.xml");
+			KRPC.init("/opt/krpc-dev/krpc/demo/com.a123.call/src/resources/client.xml");
 
 			// 通过代理获取接口类，第二个参数为client.xml文件中服务的名字,第三个参数为该接口具体实现的名字，需要跟该服务的配置文件的name值一样
 			UserService service = ProxyFactory.create(UserService.class, "user", "userService");
@@ -49,10 +50,10 @@ public class App {
 			Executor pool = Executors.newFixedThreadPool(200);
 			final CountDownLatch count = new CountDownLatch(100000);
 			start = System.currentTimeMillis();
-			for (int i = 0; i < 100000; i++) {
+			for (int i = 0; i < 30; i++) {
 
 				pool.execute(new Task(service, i, log,count));
-				
+				TimeUnit.SECONDS.sleep(5);
 			}
 
 			count.await();

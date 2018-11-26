@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <KRPC>
-	
+
+    <!-- 配置注册中心 -->
+    <zk sessionTimeOut="2000" connectionTimeOut="2000">
+        <addr>127.0.0.1:2181,127.0.0.1:3333</addr>
+    </zk>
+
+    <!-- 如果服务server端也加入了注册中心，可以省略Localbalance标签 -->
+    <!-- 如果同一个服务client例如user服务（以name区分），同时使用了注册中心和直接地址配置，默认使用 直接地址配置-->
+    <Service name="user" maxThreadCount="50"/>
+
 	<!-- 所连接的服务配置文件 name的值可以任意指定，只要在ProxyFactory.create的第二个参数值相同即可 -->
     <!--用户服务 -->
-	<Service name="user" id="1" maxThreadCount="50">
+	<Service name="user" maxThreadCount="50" timeout="10000">
 		
         <Loadbalance>
-			<!-- 请求超时时间(ms) -->
-            <Server timeout="10000">
+            <Server>
                 <!--addr name="user1" host="127.0.0.1" port="17666" maxCurrentUser="50"/-->
-				<addr name="user1" host="127.0.0.1" port="16666" maxCurrentUser="50"/>
+				<addr name="user1" host="127.0.0.1" port="17666" maxCurrentUser="50"/>
+                <addr name="user1" host="127.0.0.1" port="17665" maxCurrentUser="50"/>
+
             </Server>
         </Loadbalance>
     </Service>

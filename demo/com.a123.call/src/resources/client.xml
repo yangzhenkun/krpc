@@ -1,19 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <KRPC>
-	
-	<!-- 所连接的服务配置文件 name的值可以任意指定，只要在ProxyFactory.create的第二个参数值相同即可 -->
+
+    <!-- 配置注册中心-->
+    <zk sessionTimeOut="2000" connectionTimeOut="2000">
+        <addr>127.0.0.1:2181,127.0.0.1:3333</addr>
+    </zk>
+
+    <!-- 所连接的服务配置文件 name的值可以任意指定，只要在ProxyFactory.create的第二个参数值相同即可 -->
     <!--用户服务 -->
-	<Service name="user" id="1" maxThreadCount="50">
-		
-        <Loadbalance>
-			<!-- 请求超时时间(ms) -->
-            <Server timeout="10000">
+    <Service name="user" id="1" maxThreadCount="50" timeout="10000">
+
+        <!--Loadbalance>
+            <Server >
                 <addr name="user1" host="127.0.0.1" port="17666" maxCurrentUser="50"/>
+                <addr name="user2" host="127.0.0.1" port="17665" maxCurrentUser="50"/>
+
             </Server>
-        </Loadbalance>
+        </Loadbalance -->
     </Service>
-    
-   
-   
+
+
 </KRPC>

@@ -1,18 +1,18 @@
 package com.krpc.server;
 
 
-import com.krpc.common.serializer.SerializeUtil;
-import com.krpc.server.entity.User1;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BootStrapTest {
 
-	public static void main(String[] args){
-		
-		
-		byte[] bytes = SerializeUtil.serialize(new User1(1,"yasin","18888888888"));
-		
-		
-		
-	}
-	
+    public static void main(String[] args) {
+
+        List<String> list = new ArrayList<>();
+        list.add("1");
+
+        System.out.println(list.toString());
+
+    }
+
 }

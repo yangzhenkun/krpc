@@ -4,7 +4,7 @@
 
 	<groupId>com.krpc</groupId>
 	<artifactId>com.krpc.client</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<packaging>jar</packaging>
 
 	<name>com.krpc.client</name>
@@ -25,7 +25,7 @@
 		<dependency>
 			<groupId>com.krpc</groupId>
 			<artifactId>com.krpc.common</artifactId>
-			<version>0.0.1</version>
+			<version>0.0.2</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

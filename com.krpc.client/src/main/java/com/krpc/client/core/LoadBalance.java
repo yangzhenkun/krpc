@@ -20,7 +20,7 @@ public class LoadBalance {
 	 * @return
 	 */
 	public static Address loadbalanceRandom(String serviceName){
-		ServiceParams serviceParams = KRPC.getService(serviceName);
+		ServiceParams serviceParams = ServiceParams.getService(serviceName);
 		int total = serviceParams.getAddresses().size();
 		int index = (int) (System.currentTimeMillis()%total);
 		
@@ -31,8 +31,9 @@ public class LoadBalance {
 	
 	
 	public static Address loadbalanceUniformity(String serviceName) {
-		ServiceParams serviceParams = KRPC.getService(serviceName);
+		ServiceParams serviceParams = ServiceParams.getService(serviceName);
 		int total = serviceParams.getAddresses().size();
+		count.weakCompareAndSet(Integer.MAX_VALUE,0);
 		return serviceParams.getAddresses().get(count.getAndIncrement()%total);
 
 		

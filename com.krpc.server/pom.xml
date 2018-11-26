@@ -4,7 +4,7 @@
 
 	<groupId>com.krpc</groupId>
 	<artifactId>com.krpc.server</artifactId>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<packaging>jar</packaging>
 
 	<name>com.krpc.server</name>
@@ -19,7 +19,7 @@
 		<dependency>
 			<groupId>com.krpc</groupId>
 			<artifactId>com.krpc.common</artifactId>
-			<version>0.0.1</version>
+			<version>0.0.2</version>
 		</dependency>
 
 		
@@ -35,14 +35,14 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.25</version>
 		</dependency>
-
-
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>3.8.1</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
+
+
 	</dependencies>
 
 	<build>

@@ -30,6 +30,6 @@ public class Address {
 	public void setPort(Integer port) {
 		this.port = port;
 	}
-	
-	
+
+
 }

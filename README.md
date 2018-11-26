@@ -7,13 +7,13 @@
 
 ### 如何使用
 
-编译好的环境 [release](https://github.com/yangzhenkun/krpc/releases/tag/1.0)
+编译好的服务端环境 [release](https://github.com/yangzhenkun/krpc/releases/tag/1.0)
 
 #### 1.服务端
 解压后server文件夹中就是服务端环境，如demo所示，server/service中有一个user文件，就是我们部署的user服务，下面有两个必须的文件夹conf（配置文件）
 
 log4j.xml是该服务日志的标准的log4j配置文件，如果想修改日志路径
-```java
+```xml
 <!-- 输出日志到文件  每天一个文件 -->
   	<appender name="dailyRollingFile"
   		class="org.apache.log4j.DailyRollingFileAppender">
@@ -26,14 +26,17 @@ log4j.xml是该服务日志的标准的log4j配置文件，如果想修改日志
   		</layout>
   	</appender> 
 ```
-修改<param name="File" value="D:/opt/krpc/log/user/krpc.log"></param>值即可
+修改<param name="File" value="/opt/krpc/log/user/krpc.log"></param>值即可
 
 server.xml文件为服务的配置文件
 
 ```xml
 <configuration>
 
-
+<!-- 配置注册中心 如果不配置，则不使用 -->
+<zk sessionTimeOut="20000" connectionTimeOut="20000">
+        <addr>127.0.0.1:2181,127.0.0.1:3333</addr>
+</zk>
 <!-- 连接相关参数 -->
 	<property>
 		<!-- 该服务监听的本机IP和tcp端口 -->
@@ -60,8 +63,8 @@ server.xml文件为服务的配置文件
 
 **启动** 
 启动在server/bin里面，执行
-```java
-java -jar com.krpc.server-0.0.1.jar 服务名
+```
+    java -jar com.krpc.server-0.0.1.jar 服务名
 ```
 命令，查看日志，如果看到  启动成功，监听端口***  的日志，恭喜你，服务端启动成功。
 
@@ -77,8 +80,13 @@ krpc提供了服务端镜像，所以每个服务都可以在krpc提供的docker
 使用需要先调用KRPC.init("client配置文件")进行初始化
 配置在client/client.xml中
 
-```java
-
+```xml
+    
+    <!-- 配置注册中心-->
+        <zk sessionTimeOut="2000" connectionTimeOut="2000">
+            <addr>127.0.0.1:2181,127.0.0.1:3333</addr>
+        </zk>
+    
 	<!-- 所连接的服务配置文件 name的值可以任意指定，只要在ProxyFactory.create的第二个参数值相同即可 -->
     <!--用户服务 -->
 	<Service name="user" id="1" maxThreadCount="50">
