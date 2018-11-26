@@ -1,5 +1,7 @@
 package com.krpc.server.entity;
 
+import com.krpc.common.entity.ZookeeperInfo;
+
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.Map;
@@ -48,6 +50,12 @@ public class Global {
 	private Map<String,Method> methodCache;
 	
 	private ClassLoader classLoader;
+
+	/**
+	 * 用于注册中心的zookeeper的信息
+	 */
+	private ZookeeperInfo zookeeperInfo;
+
 	
 	public String getServiceName() {
 		return serviceName;
@@ -138,5 +146,13 @@ public class Global {
 		}
 		
 		return methodKey.toString();		
+	}
+
+	public ZookeeperInfo getZookeeperInfo() {
+		return zookeeperInfo;
+	}
+
+	public void setZookeeperInfo(ZookeeperInfo zookeeperInfo) {
+		this.zookeeperInfo = zookeeperInfo;
 	}
 }

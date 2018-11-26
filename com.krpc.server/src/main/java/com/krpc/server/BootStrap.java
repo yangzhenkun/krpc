@@ -4,6 +4,7 @@ package com.krpc.server;
 import com.krpc.server.core.LoadConfigure;
 import com.krpc.server.entity.Global;
 import com.krpc.server.netty.ServerHandler;
+import com.krpc.server.register.ZkRegisterCenter;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -73,8 +74,17 @@ public class BootStrap {
 
 
                 ChannelFuture f = bootstrap.bind(Global.getInstance().getPort()).sync();
+                /**
+                 * 使用注册中心
+                 */
+                if (Global.getInstance().getZookeeperInfo() != null) {
+                    ZkRegisterCenter.register();
+                }
+
+
                 log.info("启动成功,监听端口:" + Global.getInstance().getPort());
                 f.channel().closeFuture().sync();
+
 
             } else {
                 System.out.println("请输入启动的服务名字");

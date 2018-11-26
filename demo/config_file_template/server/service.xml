@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
 
-
 <!-- 连接相关参数 -->
 <property>
 	<!-- 该服务监听的本机IP和tcp端口 -->
-	<connection ip="127.0.0.1" port="17666" timeout="3000"/>
+	<connection ip="10.0.0.1" port="17666" timeout="3000"/>
 	<!-- 最大接受请求（字节,默认值是1024） -->
 	<netty maxBuf="65535"/>
 </property>
@@ -17,6 +16,9 @@
 	<service name="userService" impl="com.a123.service.user.impl.UserServiceImpl"/>
 </services>
 
-
+<!-- 配置注册中心 如果不配置，则不使用 -->
+<zk sessionTimeOut="2000" connectionTimeOut="2000">
+    <addr>127.0.0.1:2181,127.0.0.1:3333</addr>
+</zk>
 
 </configuration>
